@@ -1,0 +1,74 @@
+[
+  {
+    "width": 1440,
+    "mid": "3 / 4",
+    "overflow": false,
+    "disabled": 4,
+    "final": "Requirements captured",
+    "font": true,
+    "stableHeight": true,
+    "arrowFocus": true,
+    "panelFocus": true,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "reducedMotion": true,
+    "replayCount": 0,
+    "count": "4 / 4"
+  },
+  {
+    "width": 820,
+    "mid": "3 / 4",
+    "overflow": false,
+    "disabled": 4,
+    "final": "Requirements captured",
+    "font": true,
+    "stableHeight": true,
+    "arrowFocus": true,
+    "panelFocus": true,
+    "errors": []
+  },
+  {
+    "width": 820,
+    "reducedMotion": true,
+    "replayCount": 0,
+    "count": "4 / 4"
+  },
+  {
+    "width": 390,
+    "mid": "3 / 4",
+    "overflow": false,
+    "disabled": 4,
+    "final": "Requirements captured",
+    "font": true,
+    "stableHeight": true,
+    "arrowFocus": true,
+    "panelFocus": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "reducedMotion": true,
+    "replayCount": 0,
+    "count": "4 / 4"
+  },
+  {
+    "width": 320,
+    "mid": "3 / 4",
+    "overflow": false,
+    "disabled": 4,
+    "final": "Requirements captured",
+    "font": true,
+    "stableHeight": true,
+    "arrowFocus": true,
+    "panelFocus": true,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "reducedMotion": true,
+    "replayCount": 0,
+    "count": "4 / 4"
+  }
+]

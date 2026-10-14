@@ -1,0 +1,183 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#hero"
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Manzil AI home" [ref=e6] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e7]: Manzil AI
+      - navigation "Main" [ref=e8]:
+        - button "Product" [ref=e10] [cursor=pointer]
+        - button "Who it's for" [ref=e14] [cursor=pointer]
+        - link "Plans" [ref=e17] [cursor=pointer]:
+          - /url: "#plans"
+        - link "About" [ref=e18] [cursor=pointer]:
+          - /url: "#about"
+      - link "Book a demo" [ref=e20] [cursor=pointer]:
+        - /url: "#demo"
+  - main [ref=e22]:
+    - region [ref=e23]:
+      - generic [ref=e24]:
+        - paragraph [ref=e25]: Built for real-estate agencies in Pakistan
+        - heading "Your agency’s property assistant, on WhatsApp." [level=1] [ref=e26]
+        - paragraph [ref=e27]: Answer property enquiries, share relevant listings, and connect interested buyers with your team.
+        - generic [ref=e28]:
+          - link "Book a demo" [ref=e29] [cursor=pointer]:
+            - /url: "#demo"
+          - link "See how it works" [ref=e31] [cursor=pointer]:
+            - /url: "#how"
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [aria-hidden] [ref=e35]:
+            - generic [ref=e36]: MD
+            - generic [ref=e52]:
+              - paragraph [ref=e53]: Today's leads
+              - list [ref=e54]:
+                - listitem [ref=e55]:
+                  - generic [ref=e56]: AK
+                  - generic [ref=e57]:
+                    - strong [ref=e58]: Ahmed Khan
+                    - generic [ref=e59]: DHA Phase 6 · 2-bed apartment
+                  - emphasis [ref=e60]: New enquiry
+                - listitem [ref=e61]:
+                  - generic [ref=e62]: SA
+                  - generic [ref=e63]:
+                    - strong [ref=e64]: Sara Ali
+                    - generic [ref=e65]: Clifton · Apartment for rent
+                  - emphasis [ref=e66]: Follow-up
+                - listitem [ref=e67]:
+                  - generic [ref=e68]: BH
+                  - generic [ref=e69]:
+                    - strong [ref=e70]: Bilal Hassan
+                    - generic [ref=e71]: Gulshan · House for sale
+                  - emphasis [ref=e72]: Assigned
+                - listitem [ref=e73]:
+                  - generic [ref=e74]: AN
+                  - generic [ref=e75]:
+                    - strong [ref=e76]: Ayesha Noor
+                    - generic [ref=e77]: Bahria Town · Plot enquiry
+                  - emphasis [ref=e78]: New enquiry
+          - generic [ref=e80]:
+            - generic [ref=e85]:
+              - strong [ref=e86]: Manzil Demo Realty
+              - generic [ref=e87]: online
+            - log "Sample WhatsApp conversation" [ref=e98]:
+              - generic [ref=e99]: Today
+            - emphasis [ref=e107]: Message
+          - generic [ref=e117]:
+            - paragraph [ref=e118]:
+              - generic [ref=e119]: AK
+              - text: Lead summary
+            - list [ref=e120]:
+              - listitem [ref=e121]:
+                - generic [ref=e122]: Name
+                - generic [ref=e123]: Ahmed Khan
+              - listitem [ref=e124]:
+                - generic [ref=e125]: Looking for
+                - generic [ref=e126]: 2-bed apartment
+              - listitem [ref=e127]:
+                - generic [ref=e128]: Area
+                - generic [ref=e129]: DHA Phase 6
+              - listitem [ref=e130]:
+                - generic [ref=e131]: Budget
+                - generic [ref=e132]: Up to PKR 3 crore
+              - listitem [ref=e133]:
+                - generic [ref=e134]: Status
+                - generic [ref=e135]: Matching properties
+        - generic [ref=e137]:
+          - paragraph [ref=e138]: Illustrative demo · Sample data
+          - button "Replay the demo" [ref=e139] [cursor=pointer]: Replay
+    - region [ref=e142]:
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - paragraph [ref=e145]: Manzil in action
+          - heading "Your agency’s conversations, moving forward." [level=2] [ref=e146]
+          - paragraph [ref=e147]: Understand buyer requirements. Share relevant properties. Give your agents the context to take over.
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - tablist "Manzil demonstrations" [ref=e150]:
+              - tab "Buyer enquiries" [selected] [ref=e151] [cursor=pointer]
+              - tab "Property matching Soon" [disabled] [ref=e153]:
+                - generic [ref=e154]: Property matching
+                - generic [ref=e155]: Soon
+              - tab "Voice notes Soon" [disabled] [ref=e156]:
+                - generic [ref=e157]: Voice notes
+                - generic [ref=e158]: Soon
+              - tab "Listing updates Soon" [disabled] [ref=e159]:
+                - generic [ref=e160]: Listing updates
+                - generic [ref=e161]: Soon
+              - tab "Agent handoff Soon" [disabled] [ref=e162]:
+                - generic [ref=e163]: Agent handoff
+                - generic [ref=e164]: Soon
+            - paragraph [ref=e165]: "Preview: Buyer enquiries. More demonstrations to follow."
+          - tabpanel "Buyer enquiries" [ref=e166]:
+            - generic [ref=e167]:
+              - heading "Start with what the buyer needs." [level=3] [ref=e168]
+              - paragraph [ref=e169]: Manzil asks for missing details and organizes the requirements.
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - generic [ref=e172]: Example conversation & buyer brief
+                - button "Replay buyer enquiry demonstration" [ref=e173] [cursor=pointer]: Replay
+              - generic [aria-hidden] [ref=e176]:
+                - generic [ref=e177]:
+                  - generic [ref=e180]:
+                    - strong [ref=e181]: Manzil AI
+                    - generic [ref=e182]: Property assistant · WhatsApp
+                  - list [ref=e183]:
+                    - listitem [ref=e184]:
+                      - generic [ref=e185]: Ayesha
+                      - paragraph [ref=e186]: DHA Phase 6 mein 3-bedroom apartment chahiye, rent ke liye.
+                    - listitem [ref=e187]:
+                      - generic [ref=e188]: Manzil AI
+                      - paragraph [ref=e189]: Aapka monthly budget kitna hai?
+                    - listitem [ref=e190]:
+                      - generic [ref=e191]: Ayesha
+                      - paragraph [ref=e192]: 1.5 lakh tak.
+                  - generic [ref=e193]: Ayesha’s rental enquiry
+                - generic [ref=e194]:
+                  - generic [ref=e195]:
+                    - generic [ref=e196]: The buyer brief
+                    - generic [ref=e197]: 0 / 4
+                  - heading [level=4] [ref=e198]: A clear starting point.
+                  - generic [ref=e199]:
+                    - generic [ref=e200]:
+                      - term [ref=e201]: Area
+                      - definition [ref=e202]:
+                        - generic [ref=e203]: DHA Phase 6
+                        - generic [ref=e204]: Awaiting detail
+                    - generic [ref=e205]:
+                      - term [ref=e206]: Property
+                      - definition [ref=e207]:
+                        - generic [ref=e208]: 3-bedroom apartment
+                        - generic [ref=e209]: Awaiting detail
+                    - generic [ref=e210]:
+                      - term [ref=e211]: Purpose
+                      - definition [ref=e212]:
+                        - generic [ref=e213]: Rent
+                        - generic [ref=e214]: Awaiting detail
+                    - generic [ref=e215]:
+                      - term [ref=e216]: Budget
+                      - definition [ref=e217]:
+                        - generic [ref=e218]: Up to PKR 150,000/month
+                        - generic [ref=e219]: Awaiting detail
+                  - paragraph [ref=e220]: Building the buyer brief
+              - generic [ref=e221]:
+                - heading "Example conversation and completed buyer brief" [level=4] [ref=e222]
+                - list [ref=e223]:
+                  - listitem: "Ayesha: DHA Phase 6 mein 3-bedroom apartment chahiye, rent ke liye."
+                  - listitem: "Manzil AI: Aapka monthly budget kitna hai?"
+                  - listitem: "Ayesha: 1.5 lakh tak."
+                - generic [ref=e224]:
+                  - generic [ref=e225]:
+                    - term [ref=e226]: Area
+                    - definition: DHA Phase 6
+                  - generic [ref=e227]:
+                    - term [ref=e228]: Property
+                    - definition: 3-bedroom apartment
+                  - generic [ref=e229]:
+                    - term [ref=e230]: Purpose
+                    - definition: Rent
+                  - generic [ref=e231]:
+                    - term [ref=e232]: Budget
+                    - definition: Up to PKR 150,000/month
+              - paragraph [ref=e233]: From a few messages to the details your team needs.

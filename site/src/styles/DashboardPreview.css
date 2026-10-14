@@ -1,0 +1,57 @@
+/* dashboard: context */
+.app {
+  position: absolute; inset: 0; border-radius: 24px; overflow: hidden; background: var(--warm);
+  box-shadow: 0 24px 56px rgba(15, 61, 46, .14), 0 0 0 1px rgba(15, 61, 46, .08);
+  transform: scale(calc(.96 + var(--p) * .04)); transform-origin: top center; display: flex; flex-direction: column;
+}
+.app__top { height: 56px; flex: none; background: var(--forest); display: flex; align-items: center; gap: 22px; padding: 0 24px; }
+.app__top img { height: 25px; width: auto; margin-right: 8px; }
+.app__tab svg { width: 22px; height: 22px; fill: #6f9484; stroke: none; }
+.app__tab.is-on svg { fill: #fff; }
+.app__tab--line svg { fill: none; stroke: #6f9484; stroke-width: 1.8; }
+.app__spacer { flex: 1; }
+.app__bell { width: 32px; height: 32px; display: grid; place-items: center; color: #cfe6d7; }
+.app__bell svg { width: 21px; height: 21px; }
+.app__me { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--sage-soft); color: var(--forest); font-size: 11px; font-weight: 800; letter-spacing: .02em; }
+.app__body { flex: 1; display: grid; grid-template-columns: var(--sb) 1fr; min-height: 0; }
+.app__side { background: var(--warm); border-right: 1px solid #e3e6dc; padding: 20px 14px; }
+.app__h { margin: 0 0 12px; font-size: 19px; font-weight: 800; }
+.app__side .app__h { padding: 0 8px; }
+.app__h--main { margin: 0 0 12px; font-size: 18px; color: var(--forest-2); }
+.app__label { margin: 22px 0 8px; padding: 0 8px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.app__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.app__list li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--muted); }
+.app__list li span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app__list li b { flex: none; min-width: 24px; padding: 1px 7px; border-radius: 999px; background: #e7ede8; color: var(--forest-2); font-size: 12px; line-height: 18px; font-weight: 700; text-align: center; }
+.app__list li.is-live { background: var(--forest); color: #fff; }
+.app__list li.is-live b { background: rgba(255, 255, 255, .18); color: #fff; }
+.app__main { background: var(--warm-2); }
+
+/* lead list: sits left of the phone on a clear surface, never behind it */
+.leads { position: absolute; left: calc(var(--sb) + 20px); top: 76px; width: calc(50% - 165px + var(--off) - var(--sb) - 40px); z-index: 1; }
+.leads__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lead { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; row-gap: 6px; align-items: start; padding: 11px 12px; border-radius: 14px; background: var(--warm); box-shadow: inset 0 0 0 1px #e5e8de; transition: background-color .4s, box-shadow .4s; }
+.lead__av { grid-row: 1; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #e1ede5; color: var(--forest-2); font-size: 12px; font-weight: 800; transition: background-color .4s, color .4s; }
+.lead__body { display: flex; flex-direction: column; min-width: 0; }
+.lead__body strong { font-size: 14px; line-height: 18px; font-weight: 700; }
+.lead__body span { font-size: 12.5px; line-height: 17px; color: var(--muted); }
+.lead .chip { grid-column: 2; justify-self: start; }
+.lead.is-active { background: #fff; box-shadow: inset 0 0 0 1.5px var(--forest), 0 6px 16px rgba(15, 61, 46, .1); }
+.lead.is-active .lead__av { background: var(--forest); color: #fff; }
+.chip { display: inline-block; padding: 2px 9px; border-radius: 999px; font-style: normal; font-size: 11.5px; line-height: 16px; font-weight: 700; white-space: nowrap; transition: background-color .35s, color .35s; }
+.chip--new { background: #dcefe2; color: var(--forest-2); }
+.chip--follow { background: #ece9dc; color: #5a573e; }
+.chip--assigned { background: #dde9e1; color: #2f5a49; }
+.chip--viewing { background: var(--forest); color: #fff; }
+
+@media (max-width: 1259px) {
+  .app__side { display: none; }
+}
+
+@media (max-width: 900px) {
+  .app { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app { transform: none !important; }
+}
