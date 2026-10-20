@@ -22,6 +22,12 @@
   .summary { z-index: 2; }
 }
 
+@media (max-width: 480px) {
+  .summary { width: min(100%, 320px); box-shadow: 0 8px 20px rgba(15, 61, 46, .08), 0 0 0 1.5px var(--sage-soft); }
+  .summary__av, .summary__list small { font-size: 12px; }
+  .summary__list b { font-weight: 600; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .summary__list li:not(.is-in) { opacity: 1; transform: none; }
   .summary { transform: none !important; }

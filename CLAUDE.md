@@ -1,5 +1,57 @@
 # Manzil AI website: handoff for Claude Code
 
+> **Latest 2026-10-20 (night, polish) update:** Final pass of the mobile critique. Its snapshot is closed; all 5 priority issues were addressed by adapt, quieter, typeset and layout.
+> - **Replay buttons:** hero "Replay" and "Replay examples" now share one slim pill (30px, 12.5px/700, 1.5px line border) with an invisible 44px tap area (`::after`, inset −7px 0). This also changes "Replay examples" on desktop (was a 44px, 12px pill with a 1px border).
+> - **Chat header:** icon gaps tightened (≤480px: 8px; ≤340px: head 4px, tools 6px), so "Manzil Demo Realty" no longer truncates at 360 or 320.
+> - **Typing dots:** keyframe renamed `bounce`→`typing`, which clears a detector false positive.
+> - **Verified:** at 390, 360 and 320 there are no tap targets under 44px, chips follow reading order on one row, the chat has 8px spare, no overflow, and the focus ring shows. 1440 is unchanged apart from the replay pill; the detector is clean; no console errors; build passes. 768px was not re-checked.
+> - **Files:** subagent screenshots `critA-*.png` moved to `review-screenshots/`. `.playwright-mcp/` is tracked in git; do not delete it. No commit.
+
+> **Latest 2026-10-20 (night, layout) update:** More breathing room on mobile. Desktop is unchanged.
+> - **Gutter (≤480px):** `--gutter` is 24px; ≤340px keeps 20px, because 24px clipped the last chat bubble by 9px and wrapped the enquiry chips at 320.
+> - **Mint panel behind the phone:** inset to the gutter (left/right 0, was −16px), radius 28px.
+> - **Summary (≤480px):** capped at 320px wide, softer shadow (0 8px 20px, opacity .08).
+> - **Benefits (≤600px):** section padding 62/54→48/40px; panel padding 20→16px; inner card shadows 0 2px 6px at .04.
+> - **Result:** page height at 390×844 went 2806→2634px.
+> - **Verified:** at 390, 360 and 320 the chat has 8px spare, chips stay on one row, no overflow, no console errors; build passes. Screenshot: `review-screenshots/layout-mobile-390-stage.png`. Next: polish. No commit.
+
+> **Latest 2026-10-20 (night, typeset) update:** Mobile type is lighter. Desktop is unchanged.
+> - **Hero (≤480px):** H1 30px / line-height 1.12 / weight 750, now 2 lines at 390px (was 3). Lede 16px / 1.55. Body 16px (`global.css`).
+> - **Benefits (≤600px):** H2 24px / 1.15, H3 18px, brief values weight 600.
+> - **Summary (≤480px):** values weight 600; labels and "AK" 12px.
+> - **Inside the zoomed phone (≤480px):** timestamps, "Today", "online", and the listing type and area use `calc(12px / .9)` so they render at 12px. The phone screen went 568→576px to keep 8px spare at the end of the chat. The phone is now 297×529, starting at y≈374; the summary starts at ≈919 (390×844).
+> - **Verified:** no rendered text under 12px; the type-scope detector is clean; no overflow at 390/320; no console errors; build passes. The chat header still truncates at 320px (existing issue). Screenshots: `review-screenshots/typeset-mobile-390-*.png`. No commit.
+
+> **Latest 2026-10-20 (night, quieter) update:** The hero buttons on mobile (≤480px) are calmer.
+> - **"Book a demo":** auto-width with a 220px minimum, instead of edge to edge (`Hero.css`).
+> - **"See how it works":** now a 15px underlined text link in normal case, 44px tall, keeping its arrow.
+> - **All `.btn` at ≤480px** (`global.css`): weight 800→700, letter spacing .1em→.06em. The mobile-menu CTA stays full width.
+> - **Effect:** the phone now starts at y≈410 and the summary at ≈948 (390×844).
+> - **Verified:** the "Booking opens soon" note pushes the link down without overlap; the focus ring shows; no overflow at 320; no console errors; build passes. Screenshot: `review-screenshots/quieter-cta-390.png`. No commit.
+
+> **Latest 2026-10-20 (night, adapt) update:** After a mobile-only critique (`.impeccable/critique/2026-10-20T13-45-09Z__site-src-app-jsx.md`), the ≤480px phone mockup was made smaller in `WhatsAppDemo.css`.
+> - **How:** CSS `zoom: .9`, with the screen height 596→568px. The rendered frame is about 5px (padding 6px pre-zoom), the corner radius is about 30px, and the shadow is softer (0.16 opacity, was 0.26).
+> - **Result:** at 390px the phone went from 330×610 to 297×522, and the chat wraps exactly as before (6px spare at the end). The summary moved up from y≈1046 to 958, so phone and summary fit together on the first scroll; it is not in the first viewport. At 320px the phone is 265×522.
+> - **Trade-off:** chat text renders at about 12.6px and timestamps at about 9.9px.
+> - **Verified:** no overflow or console errors at 390/320; build passes. Screenshots: `review-screenshots/adapt-phone-*.png`.
+> - **Remaining critique steps:** buttons (quieter), type (typeset), spacing (layout), polish. No commit.
+
+> **Latest 2026-10-20 (evening, typeset) update:** The benefits H2 is now "One enquiry, from WhatsApp to your team." (it was "Less back-and-forth. More useful conversations."), and the line under it, which repeated the card titles, was removed.
+> - **Sizes:** `clamp(30px, 2.8vw, 40px)`, line-height 1.1; 28px at ≤790px; 40px gap below the intro at ≤600px.
+> - **Before:** the mobile H2 (about 32px) matched the H1.
+> - **Measured H1 / H2 / H3:** 1440: 58/40/24; 1024: 43/30/19; 700: 32/28/19; 390: 32/28/21; 320: 32/28/21.
+> - No overflow, no errors; the type-scope detector is clean. No commit.
+
+> **Latest 2026-10-20 (evening, clarify) update:** By owner choice the benefits section now follows one lead: Ahmed from the hero.
+> - **Card 1:** "Ahmed's message" is his hero enquiry. Three terms (DHA Phase 6 / 2-bed apartment / 3 crore) beam into three chips: DHA Phase 6, 2-bed, 3 crore. The "Budget needed" missing chip and the dotted amber path were removed, and `useEnquirySequence.js` now has three highlight→beam→chip triplets. Chips are reordered by term x-position in the measure step so beams never cross.
+> - **Card 2:** "Ahmed's purchase enquiry" (DHA Phase 6, 2-bed apartment, up to PKR 3 crore). Its latest question is "Price final hai?", which needs a human reply. This resolves the old contradiction where the hero bot answers "Saturday ko dekh sakte hain?".
+> - **Card 3:** the staff update "DHA 6 wala 2-bed ab 2.75 crore" becomes a draft for DHA Phase 6 / 2-bed apartment / PKR 2.75 crore, "was 2.85" (the hero listing price).
+> - **CSS:** 791–900px gets tighter enquiry padding so the chips stay on one row.
+> - **Verified:** 1440, 1024, 900, 860, 800, 791, 700, 390 and 320: one chip row, no clipping, no overflow, no console errors.
+> - The H2 and the line under it are unchanged (planned for typeset). No commit.
+
+> **Latest 2026-10-20 (evening) update:** Mobile hero payoff. `LeadSummary.jsx` now stays empty until at least 60% of it is visible (IntersectionObserver), then plays the fields the chat has already covered in a 160 ms cascade. It shows "Matching properties" before switching to "Viewing requested", about 600 ms after the cascade ends. On desktop the card is already visible, so behaviour is unchanged; reduced motion shows the finished card straight away; replay goes back to normal chat-timed reveals. `Hero.jsx` passes `reducedMotion`. A compact chip on the phone was rejected because at 390×844 the phone's bottom edge is itself below the fold. Verified in headless Chromium at 390×844, 320×568, 390 reduced-motion, 1440×900 and 1366×768: no overflow, no console errors, replay correct. No commit.
+
 > **Latest 2026-10-20 (later) update:** After an Impeccable critique (snapshot in `.impeccable/critique/`), only benefits-section text sizes changed in `site/src/styles/AgencyBenefits.css`: UI labels, status badges and the "Illustrative examples" note are now 12px; brief field values, listing-draft details and the latest-question bubble are now `clamp(13px, 1vw, 14px)` (the bubble may wrap). Headless Chromium checked 11 widths (1440–320): minimum text 12px, no clipping, overflow or console errors. Booking stays "coming soon" by owner decision. Follow-up pass: each benefit's heading and line now come before its visual (`BenefitColumn` in `AgencyBenefits.jsx`); at >790px a CSS subgrid keeps the three visuals top-aligned when headings wrap; at 600–790px the copy sits left and the visual right. Verified at the same 11 widths. Hero fold pass: removed the eyebrow pill (owner approved; ping animation gone), tightened hero top padding/copy gap/demo margin, H1 max 66→58px, stage 690→640px, phone top 28→16px, phone screen 620→576px (≤480px: 610→596px), listing image 112→88px, lead summary top 180→104px. End-of-animation measurements: "Viewing requested" above the fold at 1920×1080, 1536×864, 1440×900, 1280×800 and 1024×768 (not 1366×768, 7px short, or 1280×720); the last chat reply fits at 1920×1080 and 1440×900 (7px spare) but not at shorter screens. No chat overflow at 14 widths, no console errors. Section-2 "eyebrow" mentions below are stale. No commit or deployment.
 
 > **Latest 2026-10-20 update:** Only the first buyer-enquiry illustration changed: `useEnquirySequence.js` provides a 2.8-second, nine-step native Web Animations schedule with sequential term highlights, green travelling dots, chips on arrival, then dotted amber budget connection/status. First-panel visibility threshold is 45%; replay cancels previous effects; reduced motion/failure shows final HTML. Measured SVG endpoints follow resize/font layout. Existing container dimensions, headings, typography, section surfaces, broker/staff timing, hero and navbar were preserved. No dependency added. Build and production browser checks passed at 1440–280px, including order, alignment, wrapping, replay, fallbacks and zero clipping/errors. Development Strict Mode had no duplicate effects. REA CLI inspected the exact Animated Beam reference and local desktop/mobile; reference/desktop retained observations but reported cleanup timeout, mobile completed (`ev_2ba11b63ae76728258a4e5fc8496eb4fb6d54e3eb8c5677d333871f01cbd8db6`). See the latest `AGENTS.md` entry and `review-screenshots/beam-review.md` for precise evidence limitations. Review: `benefits-beam-{desktop,mobile}.png`, `benefits-beam-sequence.webm`. Stop for owner review; no commit or deployment.

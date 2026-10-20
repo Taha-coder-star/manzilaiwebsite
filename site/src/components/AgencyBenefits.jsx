@@ -23,12 +23,13 @@ function EnquiryVisual({ replayVersion }) {
   const apartmentTermRef = useRef(null);
   const dhaChipRef = useRef(null);
   const apartmentChipRef = useRef(null);
-  const budgetRef = useRef(null);
+  const budgetTermRef = useRef(null);
+  const budgetChipRef = useRef(null);
   const [connectors, setConnectors] = useState(null);
   useEnquirySequence(visualRef, Boolean(connectors), replayVersion);
 
   useLayoutEffect(() => {
-    const elements = [visualRef, messageRef, dhaTermRef, apartmentTermRef, dhaChipRef, apartmentChipRef, budgetRef].map((ref) => ref.current);
+    const elements = [visualRef, messageRef, dhaTermRef, apartmentTermRef, budgetTermRef, dhaChipRef, apartmentChipRef, budgetChipRef].map((ref) => ref.current);
     let frame;
     let active = true;
     const measure = () => {
@@ -37,6 +38,9 @@ function EnquiryVisual({ replayVersion }) {
       const message = messageRef.current.getBoundingClientRect();
       const rect = (ref) => ref.current.getBoundingClientRect();
       const center = (box) => box.left + box.width / 2 - visual.left;
+      // The message wraps differently per width; order chips like their terms so beams never cross.
+      const pairs = [[dhaTermRef, dhaChipRef], [apartmentTermRef, apartmentChipRef], [budgetTermRef, budgetChipRef]];
+      [...pairs].sort(([a], [b]) => center(rect(a)) - center(rect(b))).forEach(([, chip], n) => { chip.current.style.order = n; });
       const curve = (term, chip) => {
         const startX = center(rect(term));
         const endX = center(rect(chip));
@@ -45,14 +49,12 @@ function EnquiryVisual({ replayVersion }) {
         const bend = Math.max(12, (endY - startY) * .42);
         return `M ${startX} ${startY} C ${startX} ${startY + bend}, ${endX} ${endY - bend}, ${endX} ${endY}`;
       };
-      const chipsBottom = Math.max(rect(dhaChipRef).bottom, rect(apartmentChipRef).bottom) - visual.top;
-      const budgetTop = rect(budgetRef).top - visual.top;
       const next = {
         width: visual.width,
         height: visual.height,
         dha: curve(dhaTermRef, dhaChipRef),
         apartment: curve(apartmentTermRef, apartmentChipRef),
-        budget: `M ${center(rect(budgetRef))} ${chipsBottom + 3} V ${budgetTop - 3}`,
+        budget: curve(budgetTermRef, budgetChipRef),
       };
       if (active) setConnectors((current) => JSON.stringify(current) === JSON.stringify(next) ? current : next);
     };
@@ -75,9 +77,9 @@ function EnquiryVisual({ replayVersion }) {
 
   return (
     <div className="benefit-visual benefit-visual--enquiry" ref={visualRef}>
-      <p className="benefit-ui-label">Buyer message</p>
-      <div className="benefit-message benefit-motion benefit-motion--message" ref={messageRef}>
-        <span className="benefit-term benefit-term--dha" ref={dhaTermRef}>DHA</span> mein <span className="benefit-term benefit-term--apartment" ref={apartmentTermRef}>apartment</span> chahiye
+      <p className="benefit-ui-label">Ahmed’s message</p>
+      <div className="benefit-message benefit-motion benefit-motion--message" ref={messageRef} lang="ur-Latn">
+        <span className="benefit-term benefit-term--dha" ref={dhaTermRef}>DHA Phase 6</span> mein <span className="benefit-term benefit-term--apartment" ref={apartmentTermRef}>2-bed apartment</span> chahiye, budget <span className="benefit-term benefit-term--budget" ref={budgetTermRef}>3 crore</span> tak
       </div>
       <svg className="benefit-connector benefit-connector--enquiry" viewBox={connectors ? `0 0 ${connectors.width} ${connectors.height}` : undefined} aria-hidden="true" focusable="false">
         {connectors && <>
@@ -86,14 +88,13 @@ function EnquiryVisual({ replayVersion }) {
           <path className="benefit-path benefit-path--budget" d={connectors.budget} />
           <path className="benefit-beam benefit-beam--dha" d={connectors.dha} pathLength="100" />
           <path className="benefit-beam benefit-beam--apartment" d={connectors.apartment} pathLength="100" />
+          <path className="benefit-beam benefit-beam--budget" d={connectors.budget} pathLength="100" />
         </>}
       </svg>
       <div className="benefit-chips">
-        <div className="benefit-chips__known">
-          <span className="benefit-chip benefit-motion benefit-motion--dha-chip" ref={dhaChipRef}>DHA</span>
-          <span className="benefit-chip benefit-motion benefit-motion--apartment-chip" ref={apartmentChipRef}>Apartment</span>
-        </div>
-        <span className="benefit-chip benefit-chip--missing benefit-motion benefit-motion--budget" ref={budgetRef}>Budget needed</span>
+        <span className="benefit-chip benefit-motion benefit-motion--dha-chip" ref={dhaChipRef}>DHA Phase 6</span>
+        <span className="benefit-chip benefit-motion benefit-motion--apartment-chip" ref={apartmentChipRef}>2-bed</span>
+        <span className="benefit-chip benefit-motion benefit-motion--budget-chip" ref={budgetChipRef}>3 crore</span>
       </div>
     </div>
   );
@@ -102,11 +103,11 @@ function EnquiryVisual({ replayVersion }) {
 function BuyerBrief() {
   return (
     <div className="benefit-brief benefit-handoff-step benefit-handoff-step--shell">
-      <h4 className="benefit-brief__title">Hina’s rental enquiry</h4>
+      <h4 className="benefit-brief__title">Ahmed’s purchase enquiry</h4>
       <dl>
         <div className="benefit-handoff-step benefit-handoff-step--area"><dt>Area</dt><dd>DHA Phase 6</dd></div>
-        <div className="benefit-handoff-step benefit-handoff-step--property"><dt>Property</dt><dd>3-bedroom apartment</dd></div>
-        <div className="benefit-handoff-step benefit-handoff-step--budget"><dt>Budget</dt><dd>Up to PKR 150,000/month</dd></div>
+        <div className="benefit-handoff-step benefit-handoff-step--property"><dt>Property</dt><dd>2-bed apartment</dd></div>
+        <div className="benefit-handoff-step benefit-handoff-step--budget"><dt>Budget</dt><dd>Up to PKR 3 crore</dd></div>
       </dl>
     </div>
   );
@@ -118,7 +119,7 @@ function HandoffVisual() {
       <BuyerBrief />
       <div className="benefit-latest">
         <span className="benefit-ui-label benefit-handoff-step benefit-handoff-step--question-label">Latest question</span>
-        <MessageBubble className="benefit-handoff-step benefit-handoff-step--question-bubble">Saturday ko dekh sakte hain?</MessageBubble>
+        <MessageBubble className="benefit-handoff-step benefit-handoff-step--question-bubble"><span lang="ur-Latn">Price final hai?</span></MessageBubble>
       </div>
       <p className="benefit-status benefit-status--reply benefit-handoff-step benefit-handoff-step--reply"><span />Needs human reply</p>
     </div>
@@ -129,9 +130,9 @@ function ListingDraft() {
   return (
     <div className="benefit-draft benefit-motion benefit-motion--draft">
       <p className="benefit-ui-label">Listing draft</p>
-      <strong className="benefit-detail benefit-detail--area">Clifton</strong>
-      <span className="benefit-detail benefit-detail--property">2-bedroom apartment</span>
-      <span className="benefit-detail benefit-detail--rent">PKR 120,000/month</span>
+      <strong className="benefit-detail benefit-detail--area">DHA Phase 6</strong>
+      <span className="benefit-detail benefit-detail--property">2-bed apartment</span>
+      <span className="benefit-detail benefit-detail--price">PKR 2.75 crore <span className="benefit-was">was 2.85</span></span>
       <p className="benefit-status benefit-status--draft benefit-motion benefit-motion--review"><span />Draft for agency review</p>
     </div>
   );
@@ -141,7 +142,7 @@ function ListingVisual() {
   return (
     <div className="benefit-visual benefit-visual--listings">
       <p className="benefit-ui-label">Staff update</p>
-      <MessageBubble className="benefit-motion benefit-motion--staff-message">Clifton · 2-bed · PKR 120,000/month</MessageBubble>
+      <MessageBubble className="benefit-motion benefit-motion--staff-message"><span lang="ur-Latn">DHA 6 wala 2-bed ab 2.75 crore</span></MessageBubble>
       <Connector />
       <ListingDraft />
     </div>
@@ -216,8 +217,7 @@ export default function AgencyBenefits() {
     <section className="agency-benefits" aria-labelledby="benefits-title" ref={sectionRef}>
       <div className="agency-benefits__inner">
         <header className="agency-benefits__intro">
-          <h2 id="benefits-title">Less back-and-forth. More useful conversations.</h2>
-          <p>Clearer enquiries. Better handoffs. Easier listing updates.</p>
+          <h2 id="benefits-title">One enquiry, from WhatsApp to your&nbsp;team.</h2>
         </header>
         <div className="agency-benefits__grid">
           {benefits.map((benefit) => <BenefitColumn benefit={benefit} key={benefit.id} replayVersion={enquiryReplay} />)}

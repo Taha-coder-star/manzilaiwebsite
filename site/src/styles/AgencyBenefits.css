@@ -15,8 +15,7 @@
 }
 .agency-benefits__inner { position: relative; max-width: 1200px; margin: 0 auto; }
 .agency-benefits__intro { max-width: 780px; margin: 0 auto clamp(32px, 3.68vw, 46px); text-align: center; }
-.agency-benefits__intro h2 { max-width: clamp(540px, 60vw, 760px); margin: 0 auto; font-size: clamp(34px, 3.9vw, 52px); font-weight: 800; line-height: 1.07; letter-spacing: -.03em; text-wrap: balance; }
-.agency-benefits__intro p { margin: 12px 0 0; color: var(--forest-2); font-size: clamp(14px, 1.55vw, 18px); line-height: 1.45; text-wrap: balance; }
+.agency-benefits__intro h2 { max-width: clamp(540px, 60vw, 760px); margin: 0 auto; font-size: clamp(30px, 2.8vw, 40px); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; text-wrap: balance; }
 .agency-benefits__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.3vw, 30px); align-items: start; }
 .benefit-column { min-width: 0; }
 /* Shared heading row keeps the three visuals top-aligned when a heading wraps. */
@@ -44,17 +43,11 @@
 .benefit-visual--enquiry > .benefit-ui-label { margin-bottom: 10px; }
 .benefit-visual--enquiry > .benefit-message { padding: 13px 19px; font-size: clamp(15px, 1.25vw, 18px); font-weight: 700; text-align: center; white-space: normal; text-wrap: balance; }
 .benefit-connector--enquiry { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; stroke-width: 1.25; }
-.benefit-path--budget { stroke: #b08038; stroke-dasharray: 2 4; stroke-linecap: round; }
 .benefit-term { padding: 0 2px; margin: 0 -2px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .benefit-beam { opacity: 0; stroke: var(--forest-2); stroke-width: 4; stroke-dasharray: 0 200; stroke-linecap: round; }
-.benefit-chips { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.benefit-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 6px; }
 .benefit-visual--enquiry > .benefit-chips { margin-top: 54px; }
-.benefit-chips__known { position: relative; display: flex; justify-content: center; gap: 6px; }
-.benefit-chips__known .benefit-chip { position: relative; z-index: 1; }
-.benefit-visual--enquiry .benefit-chip--missing { margin-top: 24px; }
 .benefit-chip { display: inline-flex; align-items: center; min-height: 27px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--forest); font-size: clamp(12px, .98vw, 14px); font-weight: 700; line-height: 1.2; white-space: nowrap; }
-.benefit-chip--missing { color: #855000; background: #fff4dd; border-color: #f1cf8b; }
-.benefit-chip--missing::before { content: "?"; display: inline-grid; place-items: center; width: 15px; height: 15px; margin-right: 6px; border-radius: 50%; background: #f7d88e; color: #855000; font-size: 10px; font-weight: 800; }
 .benefit-brief, .benefit-draft { background: #fff; border-radius: 15px; box-shadow: 0 4px 10px rgba(15, 61, 46, .05); }
 .benefit-brief { padding: 12px 13px; }
 .benefit-brief__title { margin: 0; color: var(--forest); font-size: clamp(14px, 1.16vw, 16px); font-weight: 800; line-height: 1.25; }
@@ -73,6 +66,7 @@
 .benefit-draft { align-self: stretch; padding: 13px 14px 11px; display: flex; flex-direction: column; font-size: clamp(13px, 1vw, 14px); line-height: 1.35; }
 .benefit-draft strong { margin-top: 5px; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.2; }
 .benefit-detail { width: fit-content; border-radius: 4px; }
+.benefit-was { margin-left: 4px; color: var(--muted); font-weight: 600; }
 .benefit-draft .benefit-status { align-self: flex-start; margin-top: 8px; padding: 4px 8px; }
 .benefit-status--draft { color: var(--forest-2); background: var(--mint); border-color: var(--line); }
 .benefit-status--draft > span { background: var(--sage); }
@@ -81,8 +75,9 @@
 .benefit-copy p { margin: 7px 0 0; color: var(--forest-2); font-size: clamp(13px, 1.1vw, 16px); line-height: 1.4; }
 .agency-benefits__foot { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: clamp(22px, 2.8vw, 36px); }
 .agency-benefits__note { margin: 0; color: var(--forest-2); font-size: 12px; line-height: 1.4; }
-.agency-benefits__replay { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 13px; color: var(--forest-2); border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 700; transition: background-color .2s, border-color .2s; }
+.agency-benefits__replay { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; padding: 0 12px 0 10px; color: var(--forest-2); border: 1.5px solid var(--line); border-radius: 999px; font-size: 12.5px; font-weight: 700; transition: background-color .2s, border-color .2s; }
 .agency-benefits__replay:hover { background: rgba(255, 255, 255, .66); border-color: var(--sage); }
+.agency-benefits__replay::after { content: ""; position: absolute; inset: -7px 0; } /* 44px hit area */
 .agency-benefits__replay svg { width: 14px; height: 14px; fill: none; stroke: currentColor; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -105,29 +100,38 @@
   .benefit-column.is-playing .benefit-motion--draft { animation: benefit-arrive .4s calc(var(--panel-lag) + .84s) both var(--ease); }
   .benefit-column.is-playing .benefit-detail--area { animation: benefit-highlight .27s calc(var(--panel-lag) + 1.22s) both; }
   .benefit-column.is-playing .benefit-detail--property { animation: benefit-highlight .27s calc(var(--panel-lag) + 1.39s) both; }
-  .benefit-column.is-playing .benefit-detail--rent { animation: benefit-highlight .27s calc(var(--panel-lag) + 1.56s) both; }
+  .benefit-column.is-playing .benefit-detail--price { animation: benefit-highlight .27s calc(var(--panel-lag) + 1.56s) both; }
   .benefit-column.is-playing .benefit-motion--review { animation: benefit-arrive .3s calc(var(--panel-lag) + 1.72s) both var(--ease); }
   @keyframes benefit-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   @keyframes benefit-handoff-reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
   @keyframes benefit-draw { from { stroke-dashoffset: var(--path-length); } to { stroke-dashoffset: 0; } }
   @keyframes benefit-highlight { 0%, 100% { background-color: transparent; } 50% { background-color: var(--sage-soft); } }
 }
+@media (min-width: 791px) and (max-width: 900px) {
+  /* narrowest three-column range: keep Ahmed's three chips on one row */
+  .benefit-visual--enquiry { padding-inline: 4px; }
+  .benefit-visual--enquiry .benefit-chip { padding-inline: 6px; }
+  .benefit-chips { column-gap: 3px; }
+}
 @media (max-width: 790px) {
   .benefit-column { --panel-lag: 0ms !important; }
   .agency-benefits { padding-inline: var(--gutter); }
+  .agency-benefits__intro h2 { font-size: 28px; }
   .agency-benefits__grid { max-width: 600px; margin: 0 auto; grid-template-columns: 1fr; gap: 28px; }
   .benefit-column { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 1fr); align-items: center; gap: 24px; }
   .benefit-visual, .benefit-visual--handoff { height: 250px; }
   .benefit-copy { margin-bottom: 0; }
 }
 @media (max-width: 600px) {
-  .agency-benefits { padding-block: 62px 54px; }
-  .agency-benefits__intro { margin-bottom: 26px; }
-  .agency-benefits__intro h2 { font-size: clamp(31px, 8.2vw, 38px); }
+  .agency-benefits { padding-block: 48px 40px; }
+  .agency-benefits__intro { margin-bottom: 40px; }
   .benefit-column { display: block; max-width: 380px; margin: 0 auto; width: 100%; }
-  .benefit-visual, .benefit-visual--handoff { height: auto; min-height: 275px; padding: 20px; }
+  .benefit-visual, .benefit-visual--handoff { height: auto; min-height: 275px; padding: 16px; }
   .benefit-copy { margin-bottom: 17px; }
-  .benefit-copy h3 { font-size: 21px; }
+  .agency-benefits__intro h2 { font-size: 24px; line-height: 1.15; }
+  .benefit-copy h3 { font-size: 18px; }
+  .benefit-brief dd { font-weight: 600; }
+  .benefit-message, .benefit-brief, .benefit-draft { box-shadow: 0 2px 6px rgba(15, 61, 46, .04); }
   .benefit-copy p { font-size: 15px; }
   .agency-benefits__foot { margin-top: 28px; }
 }

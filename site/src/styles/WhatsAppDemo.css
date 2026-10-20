@@ -33,10 +33,10 @@
 .meta svg { width: 16px; height: 11px; }
 .msg--in .meta svg { color: #3f8f73; }
 .msg--typing { display: flex; gap: 4px; padding: 11px 13px; }
-.msg--typing i { width: 7px; height: 7px; border-radius: 50%; background: #9db3a6; animation: bounce 1s infinite; }
+.msg--typing i { width: 7px; height: 7px; border-radius: 50%; background: #9db3a6; animation: typing 1s infinite; }
 .msg--typing i:nth-child(2) { animation-delay: .15s; }
 .msg--typing i:nth-child(3) { animation-delay: .3s; }
-@keyframes bounce { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-4px); } }
+@keyframes typing { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-4px); } }
 @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
 
 /* property card: image on top, text below, never overlapping */
@@ -57,7 +57,19 @@
 }
 
 @media (max-width: 480px) {
-  .phone__screen { height: 596px; }
+  /* zoom shrinks the whole phone (~297x522) so the chat wraps and fits exactly as at full size; values are pre-zoom */
+  .phone { zoom: .9; padding: 6px; border-radius: 33px; box-shadow: 0 16px 33px rgba(15, 61, 46, .16), inset 0 0 0 1px rgba(255, 255, 255, .06); }
+  .phone__screen { height: 576px; border-radius: 27px; }
+  /* divide by the zoom so timestamps still render at 12px */
+  .meta { font-size: calc(12px / .9); line-height: 15px; }
+  .wa__day { font-size: calc(12px / .9); line-height: 16px; }
+  .wa__tools { gap: 8px; }
+  .wa__who small, .listing__text strong, .listing__text .area { font-size: calc(12px / .9); }
+}
+
+@media (max-width: 340px) {
+  .wa__head { gap: 4px; }
+  .wa__tools { gap: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -59,7 +59,7 @@ export default function Hero() {
         <div className="stage" ref={stageRef}>
           <DashboardPreview leadActive={demo.leadActive} viewing={demo.viewing} />
           <WhatsAppDemo messages={demo.messages} typing={demo.typing} />
-          <LeadSummary revealed={demo.revealed} viewing={demo.viewing} />
+          <LeadSummary revealed={demo.revealed} viewing={demo.viewing} reducedMotion={reducedMotion} />
         </div>
         <div className="demo__foot">
           <p className="demo__note">Illustrative demo · Sample data</p>

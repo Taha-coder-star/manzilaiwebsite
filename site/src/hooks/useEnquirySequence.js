@@ -19,12 +19,9 @@ const steps = [
   { target: ".benefit-term--apartment", duration: 260, frames: highlight },
   { target: ".benefit-beam--apartment", duration: 400, frames: travel, route: ".benefit-path--apartment" },
   { target: ".benefit-motion--apartment-chip", duration: 240, frames: reveal },
-  { target: ".benefit-path--budget", duration: 260, frames: reveal },
-  { target: ".benefit-motion--budget", duration: 420, frames: [
-    { opacity: 0, backgroundColor: "#fff4dd" },
-    { opacity: 1, backgroundColor: "#f7e6bf", offset: .65 },
-    { opacity: 1, backgroundColor: "#fff4dd" },
-  ] },
+  { target: ".benefit-term--budget", duration: 260, frames: highlight },
+  { target: ".benefit-beam--budget", duration: 400, frames: travel, route: ".benefit-path--budget" },
+  { target: ".benefit-motion--budget-chip", duration: 240, frames: reveal },
 ];
 
 export default function useEnquirySequence(visualRef, geometryReady, replayVersion) {
@@ -47,7 +44,7 @@ export default function useEnquirySequence(visualRef, geometryReady, replayVersi
       observer?.disconnect();
       cancel();
       try {
-        // All effects share this one clock, including the two decorative routes.
+        // All effects share this one clock, including the decorative routes.
         const startTime = document.timeline.currentTime;
         let delay = 0;
         const animate = (selector, frames, options) => {

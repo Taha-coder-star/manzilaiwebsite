@@ -27,8 +27,10 @@ h1 { margin: 0; font-size: clamp(32px, 4.2vw, 58px); line-height: 1.06; font-wei
 
 .demo__foot { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; }
 .demo__foot .demo__note { margin: 0; }
-.replay { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--forest-2); box-shadow: inset 0 0 0 1.5px var(--line); transition: background-color .2s, color .2s; }
+.replay { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--forest-2); box-shadow: inset 0 0 0 1.5px var(--line); transition: background-color .2s, color .2s; }
 .replay svg { width: 14px; height: 14px; }
+/* invisible 44px hit area around the slim pill */
+.replay::after { content: ""; position: absolute; inset: -7px 0; }
 .replay:hover { background: var(--forest); color: #fff; box-shadow: inset 0 0 0 1.5px var(--forest); }
 
 @media (max-width: 1259px) {
@@ -44,7 +46,17 @@ h1 { margin: 0; font-size: clamp(32px, 4.2vw, 58px); line-height: 1.06; font-wei
 }
 
 @media (max-width: 480px) {
-  .cta-row { width: 100%; flex-direction: column; }
+  .stage::before { left: 0; right: 0; border-radius: 28px; }
+  h1 { font-size: 30px; line-height: 1.12; font-weight: 750; }
+  .lede { font-size: 16px; line-height: 1.55; }
+  .cta-row { width: 100%; flex-direction: column; align-items: center; gap: 6px; }
+  .cta-row .btn { width: auto; min-width: 220px; }
+  /* secondary action recedes to a text link so only "Book a demo" carries weight */
+  .cta-row .btn--ghost, .cta-row .btn--ghost:hover {
+    min-width: 0; height: 44px; padding: 0 8px; border: 0; background: none; color: var(--forest); transform: none;
+    font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none;
+    text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
