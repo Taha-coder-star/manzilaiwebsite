@@ -41,7 +41,6 @@ export default function Hero() {
       </div>
 
       <div className="hero__copy">
-        <p className="eyebrow reveal" style={delay(0)}>Built for real-estate agencies in Pakistan</p>
         <h1 id="hero-title" className="reveal" style={delay(70)}>
           Your agency’s property assistant, on&nbsp;WhatsApp.
         </h1>

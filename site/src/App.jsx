@@ -1,7 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import ProductShowcase from "./components/ProductShowcase";
-import RoleExplorer from "./components/RoleExplorer";
+import AgencyBenefits from "./components/AgencyBenefits";
 
 export default function App() {
   return (
@@ -10,8 +9,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <ProductShowcase />
-        <RoleExplorer />
+        <AgencyBenefits />
       </main>
     </>
   );

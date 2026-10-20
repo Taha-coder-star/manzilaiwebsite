@@ -1,0 +1,8 @@
+.codex/
+.cursor/
+.gemini/
+.impeccable/
+.playwright-mcp/
+review-screenshots/
+node_modules/
+.env

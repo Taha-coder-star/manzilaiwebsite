@@ -1,9 +1,9 @@
 /* phone: primary — WhatsApp-style visual demo */
 .phone {
-  position: absolute; left: calc(50% - 165px + var(--off)); top: 28px; width: 330px; z-index: 4; padding: 7px; border-radius: 38px; background: #12352a;
+  position: absolute; left: calc(50% - 165px + var(--off)); top: 16px; width: 330px; z-index: 4; padding: 7px; border-radius: 38px; background: #12352a;
   box-shadow: 0 26px 52px rgba(15, 61, 46, .26), inset 0 0 0 1px rgba(255, 255, 255, .06); transform: translateY(calc(var(--p) * -18px));
 }
-.phone__screen { height: 620px; border-radius: 31px; overflow: hidden; background: #f4f1e8; display: flex; flex-direction: column; }
+.phone__screen { height: 576px; border-radius: 31px; overflow: hidden; background: #f4f1e8; display: flex; flex-direction: column; }
 .wa__head { flex: none; display: flex; align-items: center; gap: 6px; padding: 11px 10px 9px 6px; background: var(--forest); color: #fff; }
 .wa__back { width: 20px; height: 20px; flex: none; }
 .wa__logo { width: 34px; height: 34px; border-radius: 50%; background: #f4f1e8; display: grid; place-items: center; flex: none; }
@@ -43,7 +43,7 @@
 .msg--card { padding: 3px 3px 5px; width: 86%; }
 .msg--card > p { padding: 4px 6px 6px; }
 .listing { overflow: hidden; border-radius: 8px; background: var(--warm-2); }
-.listing__img { display: block; width: 100%; height: 112px; object-fit: cover; object-position: center; background: var(--sage-soft); }
+.listing__img { display: block; width: 100%; height: 88px; object-fit: cover; object-position: center; background: var(--sage-soft); }
 .listing__text { display: flex; flex-direction: column; padding: 7px 9px 8px; }
 .listing__text .price { font-size: 15px; line-height: 19px; font-weight: 800; color: var(--forest); }
 .listing__text strong { font-size: 13px; line-height: 17px; font-weight: 700; }
@@ -57,7 +57,7 @@
 }
 
 @media (max-width: 480px) {
-  .phone__screen { height: 610px; }
+  .phone__screen { height: 596px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,34 @@
+/* "Book a demo" placeholder: a short note under the button until a booking link exists */
+.demo-cta { position: relative; display: inline-grid; }
+.demo-cta__notice {
+  position: absolute; top: calc(100% + 10px); left: 50%; z-index: 30;
+  padding: 7px 13px; border-radius: 10px; white-space: nowrap;
+  background: var(--warm); color: var(--forest); box-shadow: 0 6px 16px rgba(15, 61, 46, .14), 0 0 0 1px var(--line);
+  font-size: 13px; line-height: 18px; font-weight: 700;
+  opacity: 0; visibility: hidden; transform: translate(-50%, -4px); pointer-events: none;
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s .2s;
+}
+.demo-cta__notice::before { /* pointer to the button */
+  content: ""; position: absolute; top: -5px; left: calc(50% - 5px); width: 10px; height: 10px;
+  background: var(--warm); box-shadow: -1px -1px 0 0 var(--line); transform: rotate(45deg);
+}
+.demo-cta__notice.is-shown { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
+
+/* navbar: the button sits at the right edge, so anchor the note to that edge */
+.nav__cta .demo-cta__notice { left: auto; right: 0; transform: translateY(-4px); }
+.nav__cta .demo-cta__notice.is-shown { transform: none; }
+.nav__cta .demo-cta__notice::before { left: auto; right: 24px; }
+
+/* stacked layouts: keep the note in the flow so it never covers the next control */
+.nav__mobile-cta .demo-cta__notice { position: relative; top: auto; left: auto; transform: none; justify-self: center; white-space: normal; }
+.nav__mobile-cta .demo-cta__notice:not(.is-shown) { height: 0; padding-block: 0; box-shadow: none; }
+.nav__mobile-cta .demo-cta__notice.is-shown { margin-top: 10px; }
+@media (max-width: 480px) {
+  .cta-row .demo-cta__notice { position: relative; top: auto; left: auto; transform: none; justify-self: center; white-space: normal; }
+  .cta-row .demo-cta__notice:not(.is-shown) { height: 0; padding-block: 0; box-shadow: none; }
+  .cta-row .demo-cta__notice.is-shown { margin-top: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-cta__notice { transition: none; }
+}

@@ -1,6 +1,6 @@
 ﻿# Manzil AI website
 
-Navbar, hero, the first product showcase milestone (Buyer enquiries), and an interactive Customer/Broker/Staff role explorer for the Manzil AI marketing site.
+Navbar, hero, and a three-benefit section for the Manzil AI marketing site. The former Customer/Broker/Staff showcase is not rendered.
 Built with **React 18 + Vite 6**. Everything shown in the illustration is fictional sample data.
 
 ## Run locally
@@ -42,28 +42,27 @@ src/
   components/
     Navbar.jsx             sticky nav, dropdowns, mobile menu
     Hero.jsx               hero copy + CTAs, composes the illustration
+    AgencyBenefits.jsx     three agency outcomes with illustrative UI examples
     DashboardPreview.jsx   sidebar and lead list (supporting context)
     WhatsAppDemo.jsx       the WhatsApp-style phone
     LeadSummary.jsx        summary card that follows the conversation
-    ProductShowcase.jsx     next-section layout and Buyer enquiries demonstration
-    RoleExplorer.jsx        three-role selector and detail panel
+    ProductShowcase.jsx     retained, unmounted showcase source
     DemoLink.jsx, Icons.jsx
   hooks/
     useDemoSequence.js     conversation timeline (state + timer cleanup)
     useStageScroll.js      scroll-linked parallax
+    useShowcaseScroll.js    retained, unused showcase hook
     usePrefersReducedMotion.js
   data/
     demo.js                sample leads, sidebar counts, summary fields, conversation script
-    showcase.js            fictional buyer enquiry and five navigation labels
-    roles.js               documented Customer/Broker/Staff role overview
+    benefits.js            benefit headings and descriptions
+    showcase.js            retained showcase sample data
     nav.js                 navigation items
   styles/                  global.css plus one stylesheet per component
   assets/                  logo marks, font, sample listing illustration
 ```
 
-The showcase currently demonstrates Buyer enquiries only. The other four labels are disabled until their demonstrations are built and reviewed. Its sample conversation, extracted details and timing live in `src/data/showcase.js`; the sequence runs once when visible, holds the finished brief, and offers Replay. Reduced motion shows the completed brief immediately.
-
-The role explorer below it switches between Customer, Broker and Staff. The Product dropdown's role links lead to the matching tab. These panels summarize documented actions; they do not define or enforce backend permissions. A complete permission matrix has not been supplied.
+The page mounts `Navbar`, `Hero`, and `AgencyBenefits` in `src/App.jsx`. The benefits illustrations reveal their message-to-result steps once on scroll and have a `Replay examples` control; reduced motion shows each complete example immediately. Showcase components, styles, data, and hooks are retained as unused source so the existing work is preserved. Navbar anchors for sections that are no longer rendered are placeholders.
 
 ## Editing the demo
 
