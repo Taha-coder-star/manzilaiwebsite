@@ -1,5 +1,7 @@
 # Manzil AI website: handoff for Claude Code
 
+> **2026-11-18:** All work (comparison section, nav-link fixes, mobile-menu hardening) committed as `e10fa9e` and pushed to `origin/main` (github.com/Taha-coder-star/manzilaiwebsite). Then `9cd98a7` compacted the comparison table at ≤640px (table 717→556px tall at 390; smaller headers ≤400px; no overflow at 1440/768/390/360/320). The repo has no deploy config; any hosting is connected outside the repo.
+
 > **Latest 2026-10-20 (night, polish) update:** Final pass of the mobile critique. Its snapshot is closed; all 5 priority issues were addressed by adapt, quieter, typeset and layout.
 > - **Replay buttons:** hero "Replay" and "Replay examples" now share one slim pill (30px, 12.5px/700, 1.5px line border) with an invisible 44px tap area (`::after`, inset −7px 0). This also changes "Replay examples" on desktop (was a 44px, 12px pill with a 1px border).
 > - **Chat header:** icon gaps tightened (≤480px: 8px; ≤340px: head 4px, tools 6px), so "Manzil Demo Realty" no longer truncates at 360 or 320.
