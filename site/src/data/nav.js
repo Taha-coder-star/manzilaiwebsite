@@ -1,24 +1,23 @@
 // Navbar content. Only items with `children` render a dropdown.
+// Every href must match an id on the page (benefit anchors live in data/benefits.js).
 export const navItems = [
   {
     id: "product",
     label: "Product",
     children: [
-      { href: "#customers", title: "For customers", text: "Find properties by chat or voice note" },
-      { href: "#staff", title: "For staff", text: "Add and update listings from WhatsApp" },
-      { href: "#brokers", title: "For brokers", text: "Receive qualified leads with context" },
+      { href: "#customers", title: "For customers", text: "Turn buyer messages into clear requirements" },
+      { href: "#staff", title: "For staff", text: "Send listing updates on WhatsApp for agency review" },
+      { href: "#brokers", title: "For brokers", text: "See the buyer's brief before replying" },
     ],
   },
   {
     id: "serve",
     label: "Who it's for",
     children: [
-      { href: "#agencies", title: "Real-estate agencies", text: "One assistant on your own number" },
+      { href: "#benefits", title: "Real-estate agencies", text: "One assistant on your own number" },
       { href: "#brokers", title: "Independent brokers", text: "Never miss an enquiry again" },
     ],
   },
-  { id: "plans", label: "Plans", href: "#plans" },
-  { id: "about", label: "About", href: "#about" },
+  // Plans hidden until the owner provides pricing; restore with href #plans.
+  // About hidden until the owner provides company copy.
 ];
-
-export const loginLink = { label: "Log in", href: "#login" };

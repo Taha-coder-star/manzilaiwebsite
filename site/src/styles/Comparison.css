@@ -1,0 +1,45 @@
+.cmp { padding: clamp(40px, 5vw, 72px) clamp(20px, 8vw, 120px) clamp(56px, 7vw, 96px); background: var(--mint); }
+.cmp__inner { max-width: 1060px; margin: 0 auto; }
+.cmp h2 { margin: 0 0 clamp(26px, 3vw, 40px); text-align: center; font-size: clamp(30px, 2.8vw, 40px); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; }
+
+.cmp__card { overflow: clip; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 18px rgba(15, 61, 46, .05); }
+.cmp__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.cmp__table th, .cmp__table td { padding: 20px 16px; text-align: center; vertical-align: middle; border-top: 1px solid rgba(15, 61, 46, .08); }
+/* the header row sticks under the navbar so long rows keep their column names */
+.cmp__table thead th, .cmp__table thead td { position: sticky; top: var(--nav-h); z-index: 1; border-top: 0; background: var(--warm-2); color: var(--muted); font-size: 16px; font-weight: 700; }
+.cmp__table tbody th { width: 40%; padding-left: clamp(16px, 2.4vw, 30px); text-align: left; font-size: 17px; font-weight: 600; line-height: 1.35; }
+.cmp__table thead td { width: 40%; }
+
+.cmp__us { background: rgba(207, 230, 215, .45); }
+.cmp__table thead .cmp__us { background: var(--forest); color: #fff; font-size: 18px; font-weight: 800; }
+.cmp__brand { display: inline-flex; align-items: center; gap: 8px; }
+.cmp__brand img { width: 15px; height: auto; }
+.cmp__table td.cmp__us .cmp__text { color: var(--forest); font-weight: 800; }
+
+.cmp__icon { width: 18px; height: 18px; margin: 0 auto; color: var(--sage); }
+.cmp__us .cmp__icon { color: var(--forest-2); }
+.cmp__icon--no { color: #76897f; } /* 3.7:1 on white: quieter than a check, still legible */
+.cmp__text { color: var(--muted); font-size: 15px; line-height: 1.3; }
+.cmp__short { display: none; }
+.cmp__note { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 640px) {
+  .cmp { padding-inline: var(--gutter); }
+  .cmp__table th, .cmp__table td { padding: 14px 6px; }
+  .cmp__table thead th, .cmp__table thead td { font-size: 13px; }
+  .cmp__table thead .cmp__us { font-size: 14px; }
+  .cmp__table tbody th, .cmp__table thead td { width: 38%; }
+  .cmp__table tbody th { padding-left: 14px; font-size: 14px; }
+  .cmp__text { font-size: 12px; }
+  .cmp__long { display: none; }
+  .cmp__short { display: inline; }
+  .cmp__table thead .cmp__us { padding-inline: 2px; }
+  .cmp__brand { flex-direction: column; gap: 4px; white-space: nowrap; }
+}
+
+/* below 360px "Manzil AI" outgrows its column at 14px; 12px keeps it on one line */
+@media (max-width: 359px) {
+  .cmp__table thead .cmp__us { font-size: 12px; }
+}

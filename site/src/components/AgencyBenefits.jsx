@@ -154,7 +154,7 @@ const visuals = { enquiries: EnquiryVisual, handoff: HandoffVisual, listings: Li
 function BenefitColumn({ benefit, replayVersion }) {
   const Visual = visuals[benefit.id];
   return (
-    <article className={`benefit-column benefit-column--${benefit.id}`}>
+    <article className={`benefit-column benefit-column--${benefit.id}`} id={benefit.anchor}>
       <div className="benefit-copy">
         <h3>{benefit.title}</h3>
         <p>{benefit.description}</p>
@@ -214,7 +214,7 @@ export default function AgencyBenefits() {
   };
 
   return (
-    <section className="agency-benefits" aria-labelledby="benefits-title" ref={sectionRef}>
+    <section className="agency-benefits" id="benefits" aria-labelledby="benefits-title" ref={sectionRef}>
       <div className="agency-benefits__inner">
         <header className="agency-benefits__intro">
           <h2 id="benefits-title">One enquiry, from WhatsApp to your&nbsp;team.</h2>

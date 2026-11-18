@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { navItems, loginLink } from "../data/nav";
+import { navItems } from "../data/nav";
 import logoDark from "../assets/manzil-mark-dark.svg";
 import DemoLink from "./DemoLink";
 import { Chevron } from "./Icons";
@@ -21,7 +21,7 @@ function Dropdown({ item, open, onToggle, onHover }) {
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => onToggle(item.id)}
+        onClick={(e) => onToggle(item.id, e)}
       >
         {item.label} <Chevron />
       </button>
@@ -42,6 +42,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const burgerRef = useRef(null);
+  const headerRef = useRef(null);
   const hoverTimer = useRef(null);
 
   const closeMenu = useCallback(() => {
@@ -57,10 +58,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // lock page scroll while the mobile menu is open
+  // lock page scroll while the mobile menu is open; the menu covers the page, so make
+  // everything outside the header unreachable by keyboard and screen readers too
   useEffect(() => {
     document.body.classList.toggle("menu-open", menuOpen);
-    return () => document.body.classList.remove("menu-open");
+    const header = headerRef.current;
+    const page = [...header.parentElement.children].filter((el) => el !== header);
+    page.forEach((el) => el.toggleAttribute("inert", menuOpen));
+    return () => {
+      document.body.classList.remove("menu-open");
+      page.forEach((el) => el.removeAttribute("inert"));
+    };
   }, [menuOpen]);
 
   // click outside, Escape, and growing past the mobile breakpoint
@@ -91,7 +99,12 @@ export default function Navbar() {
 
   useEffect(() => () => clearTimeout(hoverTimer.current), []);
 
-  const toggleDropdown = (id) => setOpenDropdown((cur) => (cur === id ? null : id));
+  // On hover devices the mouse has already opened the panel, so a mouse click must not shut it
+  // again. Keyboard activation (detail 0) and touch still toggle.
+  const toggleDropdown = (id, e) => {
+    if (e.detail > 0 && window.matchMedia(HOVER_QUERY).matches) setOpenDropdown(id);
+    else setOpenDropdown((cur) => (cur === id ? null : id));
+  };
 
   // hover opens dropdowns on desktop only; touch/mobile uses click
   const hoverDropdown = (id, entering) => {
@@ -102,12 +115,25 @@ export default function Navbar() {
   };
 
   return (
-    <header className={`nav${scrolled || menuOpen ? " is-scrolled" : ""}`}>
+    <header ref={headerRef} className={`nav${scrolled || menuOpen ? " is-scrolled" : ""}`}>
       <div className="nav__bar">
         <a className="brand" href="#" aria-label="Manzil AI home">
           <img src={logoDark} alt="" width="22" height="27" />
           <span>Manzil AI</span>
         </a>
+
+        {/* before the menu in source order, so Tab moves from the button into the open menu */}
+        <button
+          ref={burgerRef}
+          className="burger"
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span /><span /><span />
+        </button>
 
         <nav
           className={`nav__links${menuOpen ? " is-open" : ""}`}
@@ -130,26 +156,13 @@ export default function Navbar() {
           )}
           <div className="nav__mobile-cta">
             <DemoLink />
-            <a className="nav__plain" href={loginLink.href}>{loginLink.label}</a>
           </div>
         </nav>
 
         <div className="nav__cta">
-          <a className="nav__plain nav__login" href={loginLink.href}>{loginLink.label}</a>
           <DemoLink className="btn--sm" />
         </div>
 
-        <button
-          ref={burgerRef}
-          className="burger"
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="menu"
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <span /><span /><span />
-        </button>
       </div>
     </header>
   );
