@@ -26,20 +26,28 @@
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 @media (max-width: 640px) {
-  .cmp { padding-inline: var(--gutter); }
-  .cmp__table th, .cmp__table td { padding: 14px 6px; }
-  .cmp__table thead th, .cmp__table thead td { font-size: 13px; }
+  .cmp { padding: 40px var(--gutter) 48px; }
+  .cmp h2 { margin-bottom: 22px; font-size: 28px; }
+  .cmp__card { border-radius: 14px; }
+  .cmp__table th, .cmp__table td { padding: 10px 4px; }
+  .cmp__table thead th, .cmp__table thead td { padding-block: 10px; font-size: 13px; }
   .cmp__table thead .cmp__us { font-size: 14px; }
-  .cmp__table tbody th, .cmp__table thead td { width: 38%; }
-  .cmp__table tbody th { padding-left: 14px; font-size: 14px; }
-  .cmp__text { font-size: 12px; }
+  .cmp__table tbody th, .cmp__table thead td { width: 43%; }
+  .cmp__table tbody th { padding-left: 14px; font-size: 14px; line-height: 1.3; }
+  .cmp__icon { width: 16px; height: 16px; }
+  .cmp__text { display: block; font-size: 12px; line-height: 1.25; }
   .cmp__long { display: none; }
   .cmp__short { display: inline; }
   .cmp__table thead .cmp__us { padding-inline: 2px; }
   .cmp__brand { flex-direction: column; gap: 4px; white-space: nowrap; }
 }
 
-/* below 360px "Manzil AI" outgrows its column at 14px; 12px keeps it on one line */
+/* narrow phones: column headers outgrow their columns at 13-14px */
+@media (max-width: 400px) {
+  .cmp__table thead th { padding-inline: 2px; font-size: 12px; }
+  .cmp__table thead .cmp__us { font-size: 13px; }
+}
 @media (max-width: 359px) {
+  .cmp__table tbody th, .cmp__table thead td { width: 40%; }
   .cmp__table thead .cmp__us { font-size: 12px; }
 }
