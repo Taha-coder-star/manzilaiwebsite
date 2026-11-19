@@ -45,7 +45,7 @@ export default function Hero() {
           Your agency’s property assistant, on&nbsp;WhatsApp.
         </h1>
         <p className="lede reveal" style={delay(140)}>
-          Answer property enquiries, share relevant listings, and connect interested buyers with your team.
+          Buyers can send a Roman Urdu message or voice note to your agency’s WhatsApp. Manzil AI finds relevant properties from your listings and sends your broker the buyer’s requirements.
         </p>
         <div className="cta-row reveal" style={delay(210)}>
           <DemoLink />

@@ -5,9 +5,8 @@ import "../styles/DemoLink.css";
 
 const NOTICE_MS = 3200;
 
-// "Book a demo" action. Goes to VITE_DEMO_URL when one is configured; until then it is a
-// button that briefly shows "Booking opens soon" instead of silently doing nothing.
-export default function DemoLink({ className = "", children = "Book a demo" }) {
+// Opens the configured WhatsApp destination. Preview builds without one show a status message.
+export default function DemoLink({ className = "", children = "Request a demo on WhatsApp" }) {
   const [notice, setNotice] = useState(false);
   const timer = useRef(0);
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -35,7 +34,7 @@ export default function DemoLink({ className = "", children = "Book a demo" }) {
       </button>
       {/* Live region stays mounted so screen readers announce the text when it appears. */}
       <span className={`demo-cta__notice${notice ? " is-shown" : ""}`} role="status">
-        {notice ? "Booking opens soon" : ""}
+        {notice ? "Demo requests open soon" : ""}
       </span>
     </span>
   );

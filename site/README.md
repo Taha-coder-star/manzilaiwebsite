@@ -29,7 +29,12 @@ client, so **never put secrets or credentials in them**. There is no backend and
 
 | Variable        | Purpose                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------- |
-| `VITE_DEMO_URL` | Destination of the "Book a demo" buttons. Not set yet, so the buttons do nothing until it is. |
+| `VITE_DEMO_URL` | Public WhatsApp link for the "Request a demo on WhatsApp" buttons. |
+
+Set `VITE_DEMO_URL` in the preview and production build environments. Use the approved public
+number with its country code and digits only in the `wa.me` path. Set the URL-encoded `text`
+parameter to “Hi, I’d like to see a Manzil AI demo for my real-estate agency.” Rebuild the
+site after changing the link.
 
 ## Project layout
 

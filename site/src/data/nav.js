@@ -15,7 +15,7 @@ export const navItems = [
     label: "Who it's for",
     children: [
       { href: "#benefits", title: "Real-estate agencies", text: "One assistant on your own number" },
-      { href: "#brokers", title: "Independent brokers", text: "Never miss an enquiry again" },
+      { href: "#brokers", title: "Independent brokers", text: "Get the buyer’s requirements before you reply." },
     ],
   },
   // Plans hidden until the owner provides pricing; restore with href #plans.
