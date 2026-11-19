@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AgencyBenefits from "./components/AgencyBenefits";
 import Comparison from "./components/Comparison";
+import HomepageClose, { SiteFooter } from "./components/HomepageClose";
 
 export default function App() {
   // The page renders client-side, after the browser's own jump to a #fragment found nothing.
@@ -19,7 +20,9 @@ export default function App() {
         <Hero />
         <AgencyBenefits />
         <Comparison />
+        <HomepageClose />
       </main>
+      <SiteFooter />
     </>
   );
 }
