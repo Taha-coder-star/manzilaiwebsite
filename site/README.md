@@ -30,11 +30,17 @@ client, so **never put secrets or credentials in them**. There is no backend and
 | Variable        | Purpose                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------- |
 | `VITE_DEMO_URL` | Public WhatsApp link for the "Request a demo on WhatsApp" buttons. |
+| `VITE_SITE_URL` | Public HTTPS homepage URL for the canonical link and Open Graph metadata. Include the site subpath if applicable. |
+| `VITE_PRIVACY_URL` | Approved public privacy policy URL for the footer. |
 
 Set `VITE_DEMO_URL` in the preview and production build environments. Use the approved public
 number with its country code and digits only in the `wa.me` path. Set the URL-encoded `text`
 parameter to “Hi, I’d like to see a Manzil AI demo for my real-estate agency.” Rebuild the
 site after changing the link.
+
+Set all three public URLs before release. For a local preview, leave the homepage and privacy
+URLs blank to omit the sharing tags and privacy link. After deploying, share the homepage on
+WhatsApp and check the title, description, and branded image.
 
 ## Project layout
 

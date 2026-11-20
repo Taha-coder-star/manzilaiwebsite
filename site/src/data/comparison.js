@@ -8,12 +8,12 @@ export const comparisonColumns = [
 ];
 
 export const comparisonRows = [
-  { feature: "Replies outside office hours", manual: false, chatbot: true, manzil: true },
+  { feature: "Replies outside office hours", manual: "Depends on staff availability", chatbot: true, manzil: true },
   { feature: "Understands Roman Urdu", manual: true, chatbot: "Partial", manzil: true },
   { feature: "Understands voice notes", manual: true, chatbot: false, manzil: true },
   { feature: "Knows Karachi area names and spellings", manual: true, chatbot: false, manzil: true },
   { feature: "Matches buyers to your own listings", manual: "Manual", chatbot: "Setup required", manzil: true },
   { feature: "Sends listing photos in the chat", manual: "Manual", chatbot: "Setup required", manzil: true },
-  { feature: "Hands the buyer to a broker with a summary", manual: false, chatbot: "Partial", manzil: true },
+  { feature: "Hands the buyer to a broker with a summary", manual: "Prepared by hand", chatbot: "Partial", manzil: true },
   { feature: "Drafts listings from staff updates", manual: false, chatbot: false, manzil: true },
 ];
