@@ -1,24 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import mark from "../assets/manzil-mark-dark.svg";
 import OnboardingFiles from "./OnboardingFiles";
+import { AnswerList, applies, REVIEW_STATUS, ReviewHistory, ROSTER_COLUMNS } from "./OnboardingReviewParts";
 import "../styles/Onboarding.css";
 
 const SETUP = "/client-setup";
 const DRAFT = `${SETUP}/api/questionnaire`;
 const SIGN_IN = `${SETUP}/sign-in`;
 const REVIEW = "review";
-const ROSTER_COLUMNS = [
-  ["name", "Name"], ["phone", "WhatsApp number"], ["role", "Role"], ["coverage", "Branch or area"],
-];
 const EMPTY_PERSON = { name: "", phone: "", role: "", coverage: "" };
 
-function applies(field, answers) {
-  const condition = field.when;
-  if (!condition) return true;
-  const value = answers[condition.field];
-  return "is" in condition
-    ? value === condition.is
-    : Boolean(value?.trim()) && value.trim().toLowerCase() !== condition.is_not.toLowerCase();
+function canEdit(draft, section) {
+  return !draft.review || draft.review.status === "draft" || draft.review.reopened_section === section;
 }
 
 function sectionAnswers(draft, step) {
@@ -30,7 +23,7 @@ async function request(url, options) {
   const response = await fetch(url, { credentials: "same-origin", cache: "no-store", ...options });
   const data = await response.json().catch(() => null);
   if (!response.ok || !data?.sections) {
-    const error = new Error("The setup service is unavailable.");
+    const error = new Error(typeof data?.detail === "string" ? data.detail : "The setup service is unavailable.");
     error.status = response.status;
     error.fields = data?.detail?.fields;
     throw error;
@@ -171,14 +164,6 @@ function Question({ field, value, email, error, onChange }) {
   );
 }
 
-function formatAnswer(value) {
-  if (!Array.isArray(value)) return value;
-  if (value.length && typeof value[0] === "object") {
-    return value.map((person) => ROSTER_COLUMNS.map(([key]) => person[key]).join(" · ")).join("\n");
-  }
-  return value.join(", ");
-}
-
 function Review({ draft, edits, onChoose }) {
   const complete = draft.completed_steps.length === draft.sections.length;
   return (
@@ -193,21 +178,46 @@ function Review({ draft, edits, onChoose }) {
             <header>
               <div><h2 id={`review-${section.id}`}>{section.title}</h2>
                 <p>{edits[section.id] ? "Unsaved edits" : saved ? "Complete" : "Needs answers"}</p></div>
-              <button className="setup-secondary" type="button" onClick={() => onChoose(section.id)}
-                      aria-label={`Edit ${section.title}`}>Edit</button>
+              {canEdit(draft, section.id) && <button className="setup-secondary" type="button" onClick={() => onChoose(section.id)}
+                      aria-label={`Edit ${section.title}`}>Edit</button>}
             </header>
-            <dl>
-              {section.fields.filter((field) => applies(field, answers)).map((field) => {
-                const value = field.type === "verified_email" ? draft.verified_email : formatAnswer(answers[field.key]);
-                if (!value && !field.required) return null;
-                return <div key={field.key}><dt>{field.label}</dt><dd>{value || "Awaiting answer"}</dd></div>;
-              })}
-            </dl>
+            <AnswerList section={section} answers={answers} email={draft.verified_email} />
           </section>
         );
       })}
     </>
   );
+}
+
+function Submission({ draft, busy, dirty, uploading, error, onSubmit, onRefresh, onChoose }) {
+  const review = draft.review;
+  const returned = draft.sections.find((section) => section.id === review.reopened_section);
+  const returnNote = review.history.find((event) => event.action === "returned");
+  const complete = draft.completed_steps.length === draft.sections.length;
+  const canSubmit = review.enabled && ["draft", "changes_requested"].includes(review.status);
+  return <section className="setup-submission" aria-labelledby="setup-review-status">
+    <h2 id="setup-review-status">{REVIEW_STATUS[review.status]}</h2>
+    <p>{review.next_action}</p>
+    {returned && <div className="setup-return-note">
+      <strong>{returned.title}</strong>
+      <p>{returnNote?.note}</p>
+      <button className="setup-link" type="button" onClick={() => onChoose(returned.id)}>Open returned section</button>
+    </div>}
+    {canSubmit && <>
+      <p className="setup-hint">{uploading ? "Wait for the upload to finish." : dirty ? "Save your edits before submitting."
+        : complete ? "Verified files are included with your answers." : "Complete all five sections to submit."}</p>
+      <button className="setup-primary" type="button" disabled={busy || dirty || uploading || !complete} onClick={onSubmit}>
+        {review.status === "changes_requested" ? "Resubmit for review" : "Submit for review"}
+      </button>
+    </>}
+    {error && <p className="setup-field-error" role="alert">{error.status === 401
+      ? <>Sign in again, then return here. <a className="setup-link" href={SIGN_IN} target="_blank" rel="noopener">Sign in in a new tab</a></>
+      : error.message}</p>}
+    {review.status !== "draft" || error?.status === 409
+      ? <button className="setup-link setup-refresh" type="button" disabled={busy} onClick={onRefresh}>Refresh status</button>
+      : null}
+    <ReviewHistory history={review.history} sections={draft.sections} />
+  </section>;
 }
 
 export default function Onboarding() {
@@ -219,6 +229,8 @@ export default function Onboarding() {
   const [busy, setBusy] = useState(false);
   const [success, setSuccess] = useState("");
   const [failure, setFailure] = useState(null);
+  const [submitError, setSubmitError] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const heading = useRef(null);
   const errorNotice = useRef(null);
   const mobileSteps = useRef(null);
@@ -233,7 +245,8 @@ export default function Onboarding() {
     const controller = new AbortController();
     request(DRAFT, { signal: controller.signal }).then((data) => {
       setDraft(data);
-      setActive(data.completed_steps.length === data.sections.length ? REVIEW : data.current_step);
+      setActive(data.review?.reopened_section ??
+        (data.completed_steps.length === data.sections.length ? REVIEW : data.current_step));
       setLoadState("ready");
     }).catch((error) => {
       if (!controller.signal.aborted) setLoadState(error.status === 401 ? "signin" : "error");
@@ -283,7 +296,7 @@ export default function Onboarding() {
   }
 
   async function save(advance) {
-    if (saving.current) return;
+    if (saving.current || !canEdit(draft, active)) return;
     const step = active;
     const answers = edits[step] ?? sectionAnswers(draft, step);
     saving.current = true;
@@ -302,7 +315,7 @@ export default function Onboarding() {
         return remaining;
       });
       setSuccess(`${draft.sections[step - 1].title} saved.`);
-      if (advance) setActive(step === draft.sections.length ? REVIEW : step + 1);
+      if (advance) setActive(saved.review?.reopened_section || step === draft.sections.length ? REVIEW : step + 1);
     } catch (error) {
       setFailure({ status: error.status, fields: error.fields, advance });
     } finally {
@@ -317,13 +330,59 @@ export default function Onboarding() {
     setBusy(true);
     try {
       const latest = await request(DRAFT);
-      const kept = edits[active] ?? sectionAnswers(draft, active);
-      setEdits((previous) => ({ ...previous, [active]: kept }));
       setDraft(latest);
       setFailure(null);
-      setSuccess("Latest revision loaded. Your entered answers are kept. Review them before saving this section again.");
+      if (canEdit(latest, active)) {
+        setSuccess("Latest revision loaded. Check your answers before saving again.");
+      } else {
+        setEdits((previous) => Object.fromEntries(Object.entries(previous)
+          .filter(([step]) => canEdit(latest, Number(step)))));
+        setActive(latest.review?.reopened_section ?? REVIEW);
+        setSuccess("The latest review status is ready.");
+      }
     } catch (error) {
       setFailure((previous) => ({ ...previous, status: error.status === 401 ? 401 : 409, reloadFailed: true }));
+    } finally {
+      saving.current = false;
+      setBusy(false);
+    }
+  }
+
+  async function submit() {
+    if (saving.current || dirty || uploading) return;
+    saving.current = true;
+    setBusy(true);
+    setSubmitError(null);
+    setSuccess("");
+    try {
+      const updated = await request(`${SETUP}/api/drafts/${draft.id}/submit`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision: draft.revision }),
+      });
+      setDraft(updated);
+      setSuccess("Submission received.");
+    } catch (error) {
+      setSubmitError(error);
+    } finally {
+      saving.current = false;
+      setBusy(false);
+    }
+  }
+
+  async function refreshStatus() {
+    if (saving.current) return;
+    saving.current = true;
+    setBusy(true);
+    setSubmitError(null);
+    setSuccess("");
+    try {
+      const latest = await request(DRAFT);
+      setDraft(latest);
+      setEdits((previous) => Object.fromEntries(Object.entries(previous)
+        .filter(([step]) => canEdit(latest, Number(step)))));
+      setSuccess("Status refreshed.");
+    } catch (error) {
+      setSubmitError(error);
     } finally {
       saving.current = false;
       setBusy(false);
@@ -393,11 +452,17 @@ export default function Onboarding() {
             {showRetry && <button className="setup-secondary" type="button" disabled={busy}
                                   onClick={() => save(failure.advance)}>Retry save</button>}
           </div>}
-          <OnboardingFiles draftId={draft.id} visible={active === 4 || active === REVIEW} editable={active === 4} />
+          {active === REVIEW && draft.review && <Submission draft={draft} busy={busy} dirty={dirty} uploading={uploading} error={submitError}
+            onSubmit={submit} onRefresh={refreshStatus} onChoose={choose} />}
+          {section && draft.review?.reopened_section === active && <p className="setup-return-note">
+            {draft.review.history.find((event) => event.action === "returned")?.note}
+          </p>}
+          <OnboardingFiles draftId={draft.id} visible={active === 4 || active === REVIEW}
+                           editable={active === 4 && canEdit(draft, 4)} onBusy={setUploading} />
           {section ? <>
             <p className="setup-description">{section.description}</p>
             {active === 2 && <p className="setup-hint">Enter verification codes yourself during your setup call.</p>}
-            <form noValidate onSubmit={(event) => { event.preventDefault(); save(true); }}>
+            {canEdit(draft, active) ? <form noValidate onSubmit={(event) => { event.preventDefault(); save(true); }}>
               <fieldset className="setup-fields" disabled={busy}>
                 {section.fields.filter((field) => applies(field, values)).map((field) => (
                   <Question key={field.key} field={field} value={values[field.key]} email={draft.verified_email}
@@ -407,10 +472,15 @@ export default function Onboarding() {
                 <div className="setup-actions">
                   {active > 1 && <button className="setup-link setup-back" type="button" onClick={() => choose(active - 1)}>Back</button>}
                   <button className="setup-secondary" type="button" onClick={() => save(false)}>Save draft</button>
-                  <button className="setup-primary" type="submit">{busy ? "Saving…" : "Save and continue"}</button>
+                  <button className="setup-primary" type="submit">{busy ? "Saving…"
+                    : draft.review?.reopened_section ? "Save and review" : "Save and continue"}</button>
                 </div>
               </fieldset>
-            </form>
+            </form> : <section className="setup-review-section">
+              <p className="setup-hint">This section is locked for review.</p>
+              <AnswerList section={section} answers={values} email={draft.verified_email} />
+              <button className="setup-link" type="button" onClick={() => choose(REVIEW)}>View review status</button>
+            </section>}
           </> : <Review draft={draft} edits={edits} onChoose={choose} />}
         </main>
       </div>

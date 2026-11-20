@@ -24,7 +24,7 @@ async function fileDigest(file) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-export default function OnboardingFiles({ draftId, visible, editable }) {
+export default function OnboardingFiles({ draftId, visible, editable, onBusy }) {
   const endpoint = `/client-setup/api/drafts/${draftId}/uploads`;
   const [snapshot, setSnapshot] = useState(null);
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -63,6 +63,7 @@ export default function OnboardingFiles({ draftId, visible, editable }) {
   async function run(operation) {
     if (running.current) return;
     running.current = true;
+    onBusy(true);
     setFailure(null);
     setNotice("");
     let retry = operation;
@@ -127,6 +128,7 @@ export default function OnboardingFiles({ draftId, visible, editable }) {
     } finally {
       setStage("");
       running.current = false;
+      onBusy(false);
     }
   }
 

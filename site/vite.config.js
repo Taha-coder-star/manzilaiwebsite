@@ -51,8 +51,8 @@ export default defineConfig(({ mode }) => {
 function normalizePortalPath(server) {
   server.middlewares.use((request, response, next) => {
     const url = new URL(request.url ?? "/", "http://localhost");
-    if (url.pathname !== "/onboarding/") return next();
-    response.writeHead(308, { Location: `/onboarding${url.search}` });
+    if (!["/onboarding/", "/onboarding-review/"].includes(url.pathname)) return next();
+    response.writeHead(308, { Location: `${url.pathname.slice(0, -1)}${url.search}` });
     response.end();
   });
 }

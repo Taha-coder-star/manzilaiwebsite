@@ -12,5 +12,6 @@ export const config = {
       { source: "/client-setup/:path*", destination: `${upstream.origin}/client-setup/:path*` },
     ] : []),
     { source: "/onboarding", destination: "/index.html" },
+    { source: "/onboarding-review", destination: "/index.html" },
   ],
 };

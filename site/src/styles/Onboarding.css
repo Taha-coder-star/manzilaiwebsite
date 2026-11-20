@@ -110,6 +110,32 @@
 .setup-file-retry input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
 .setup-file-retry:focus-within { outline: 3px solid var(--forest-2); outline-offset: 2px; }
 
+.setup-submission { display: grid; justify-items: start; gap: 10px; padding: 18px; margin: 20px 0;
+  background: #f2f8f3; border: 1px solid var(--line); border-radius: 12px; overflow-wrap: anywhere; }
+.setup-submission h2, .setup-submission p { margin: 0; }
+.setup-submission h2 { font-size: 1.25rem; }
+.setup-submission form { width: 100%; }
+.setup-submission .setup-question { margin-bottom: 14px; }
+.setup-refresh { font-size: .89rem; }
+.setup-return-note { padding: 10px 12px; border-inline-start: 3px solid #a16d47; background: #fcf2e8;
+  white-space: pre-wrap; overflow-wrap: anywhere; }
+.setup-return-note p { margin: 4px 0 8px; }
+.setup-review-history { margin: 10px 0 20px; width: 100%; }
+.setup-review-history summary, .setup-submitted-answers summary { cursor: pointer; font-weight: 730; }
+.setup-review-history ol { padding: 0 0 0 18px; margin: 12px 0 0; list-style: none; border-inline-start: 1px solid #bdd5c4; }
+.setup-review-history li { margin: 0 0 14px; overflow-wrap: anywhere; }
+.setup-review-history li time, .setup-review-history li span { display: block; font-size: .83rem; color: var(--muted); }
+.setup-review-history li p { margin: 3px 0; white-space: pre-wrap; }
+
+.setup-queue { width: min(1112px, calc(100% - 32px)); margin: clamp(18px, 4vw, 56px) auto; overflow-wrap: anywhere; }
+.setup-queue-list { padding: 0; margin: 24px 0 0; list-style: none; }
+.setup-queue-item { border-block-start: 1px solid var(--line); padding: 14px 0; }
+.setup-queue-item dl { display: grid; grid-template-columns: 1fr 1.15fr 1fr 1fr 1.25fr; gap: 12px; margin: 0; }
+.setup-queue-item dt { font-size: .78rem; font-weight: 730; color: var(--muted); }
+.setup-queue-item dd { margin: 3px 0 0; }
+.setup-queue-item button { padding: 0; text-align: start; }
+.setup-queue-back { margin: 0 0 12px; padding: 0; }
+
 @media (max-width: 760px) {
   .setup-sidebar { display: none; }
   .setup-layout { grid-template-columns: 1fr; gap: 12px; padding: 16px 14px 38px; }
@@ -122,6 +148,8 @@
   .setup-actions .setup-primary { grid-column: 1 / -1; grid-row: 2; }
   .setup-actions .setup-secondary { grid-column: 2; grid-row: 1; justify-self: end; }
   .setup-actions .setup-back { grid-column: 1; grid-row: 1; }
+  .setup-queue-item dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .setup-queue-item dl > div:first-child, .setup-queue-item dl > div:last-child { grid-column: 1 / -1; }
 }
 
 @media (max-width: 425px) {
