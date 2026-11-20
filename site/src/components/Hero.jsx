@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import useDemoSequence from "../hooks/useDemoSequence";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 import useStageScroll from "../hooks/useStageScroll";
@@ -15,23 +15,10 @@ export default function Hero() {
   const reducedMotion = usePrefersReducedMotion();
   const demo = useDemoSequence(reducedMotion);
 
-  const demoRef = useRef(null);
   const stageRef = useRef(null);
   const shapesRef = useRef(null);
-  const replayTimer = useRef(null);
 
   useStageScroll(stageRef, shapesRef, reducedMotion);
-  useEffect(() => () => clearTimeout(replayTimer.current), []);
-
-  // "See how it works": bring the demonstration into view, then replay it from the start
-  const showDemo = (e) => {
-    e.preventDefault();
-    const el = demoRef.current;
-    el.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
-    el.focus({ preventScroll: true });
-    clearTimeout(replayTimer.current);
-    replayTimer.current = setTimeout(demo.replay, 500);
-  };
 
   return (
     <section className="hero" id="hero" aria-labelledby="hero-title">
@@ -49,13 +36,13 @@ export default function Hero() {
         </p>
         <div className="cta-row reveal" style={delay(210)}>
           <DemoLink />
-          <a className="btn btn--ghost" href="#how" onClick={showDemo}>
-            See how it works <Arrow />
+          <a className="btn btn--ghost" href="#demo-video">
+            Watch the demo (2:30) <Arrow />
           </a>
         </div>
       </div>
 
-      <div className="demo reveal" style={delay(320)} id="how" tabIndex={-1} ref={demoRef}>
+      <div className="demo reveal" style={delay(320)} id="how" tabIndex={-1}>
         <div className="stage" ref={stageRef}>
           <DashboardPreview leadActive={demo.leadActive} viewing={demo.viewing} />
           <WhatsAppDemo messages={demo.messages} typing={demo.typing} />

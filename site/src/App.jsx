@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AgencyBenefits from "./components/AgencyBenefits";
+import DemoVideo from "./components/DemoVideo";
 import Comparison from "./components/Comparison";
 import HomepageClose, { SiteFooter } from "./components/HomepageClose";
 
@@ -19,6 +20,7 @@ export default function App() {
       <main>
         <Hero />
         <AgencyBenefits />
+        <DemoVideo />
         <Comparison />
         <HomepageClose />
       </main>

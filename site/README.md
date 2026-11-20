@@ -1,7 +1,7 @@
 ﻿# Manzil AI website
 
-Navbar, hero, and a three-benefit section for the Manzil AI marketing site. The former Customer/Broker/Staff showcase is not rendered.
-Built with **React 18 + Vite 6**. Everything shown in the illustration is fictional sample data.
+The Manzil AI marketing homepage includes the interactive hero, agency benefits, a product video, a comparison table, an FAQ, and WhatsApp demo requests.
+Built with **React 18 + Vite 6**. The interactive hero uses fictional sample data.
 
 ## Run locally
 
@@ -42,6 +42,14 @@ Set all three public URLs before release. For a local preview, leave the homepag
 URLs blank to omit the sharing tags and privacy link. After deploying, share the homepage on
 WhatsApp and check the title, description, and branded image.
 
+## Product video
+
+The original 2:30 landscape and portrait MP4s and their WebP posters live in `public/demo/`.
+The player selects portrait at widths up to 640px when the visitor presses Play. It keeps the
+selected cut if the viewport changes during playback. The browser fetches the MP4 only after
+Play. Check that the release host serves the files as `video/mp4` and returns `206 Partial Content`
+for byte-range requests so visitors can seek.
+
 ## Project layout
 
 ```
@@ -54,6 +62,7 @@ src/
     Navbar.jsx             sticky nav, dropdowns, mobile menu
     Hero.jsx               hero copy + CTAs, composes the illustration
     AgencyBenefits.jsx     three agency outcomes with illustrative UI examples
+    DemoVideo.jsx          responsive poster and native video controls
     DashboardPreview.jsx   sidebar and lead list (supporting context)
     WhatsAppDemo.jsx       the WhatsApp-style phone
     LeadSummary.jsx        summary card that follows the conversation
@@ -73,7 +82,9 @@ src/
   assets/                  logo marks, font, sample listing illustration
 ```
 
-The page mounts `Navbar`, `Hero`, and `AgencyBenefits` in `src/App.jsx`. The benefits illustrations reveal their message-to-result steps once on scroll and have a `Replay examples` control; reduced motion shows each complete example immediately. Showcase components, styles, data, and hooks are retained as unused source so the existing work is preserved. Navbar anchors for sections that are no longer rendered are placeholders.
+The benefits illustrations reveal their message-to-result steps once on scroll and have a
+`Replay examples` control. Reduced motion shows each complete example immediately. The former
+Customer/Broker/Staff showcase remains in the source tree.
 
 ## Editing the demo
 
