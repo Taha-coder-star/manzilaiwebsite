@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import mark from "../assets/manzil-mark-dark.svg";
+import OnboardingFiles from "./OnboardingFiles";
 import "../styles/Onboarding.css";
 
 const SETUP = "/client-setup";
@@ -392,6 +393,7 @@ export default function Onboarding() {
             {showRetry && <button className="setup-secondary" type="button" disabled={busy}
                                   onClick={() => save(failure.advance)}>Retry save</button>}
           </div>}
+          <OnboardingFiles draftId={draft.id} visible={active === 4 || active === REVIEW} editable={active === 4} />
           {section ? <>
             <p className="setup-description">{section.description}</p>
             {active === 2 && <p className="setup-hint">Enter verification codes yourself during your setup call.</p>}
