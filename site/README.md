@@ -3,6 +3,8 @@
 The Manzil AI marketing homepage includes the interactive hero, agency benefits, a product video, a comparison table, an FAQ, and WhatsApp demo requests.
 Built with **React 18 + Vite 6**. The interactive hero uses fictional sample data.
 
+The invited-client questionnaire is at `/onboarding`. See the [setup and verification notes](../docs/client-setup/chunk-3-verification.md) for FastAPI, Cognito, and Vercel configuration.
+
 ## Run locally
 
 Requires Node.js 18 or newer.
