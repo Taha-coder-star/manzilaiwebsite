@@ -1,5 +1,7 @@
 # Manzil AI website: handoff for Claude Code
 
+> **2026-11-21 (later):** Team card 1 is real: Taha Ahmed, Co-founder & CTO, photo `site/src/assets/team-1.jpg` (384px crop). `Team.jsx` shows `photo` when set, else the placeholder icon. Cards 2–3 still placeholders.
+
 > **2026-11-21:** Developer (furqan) branch `launch/day-2-homepage-completion` merged into `main` (`ef05cc0`): WhatsApp demo CTA, `DemoVideo` (MP4s in `site/public/demo/`), FAQ/closing section + footer (`HomepageClose.jsx`), OG tags in `vite.config.js`. Team/Partners then committed on top. Page order: Hero → Benefits → DemoVideo → Comparison → Team → Partners → HomepageClose → SiteFooter. **Hosting is Vercel via the GitHub integration: every push to `main` deploys production (https://manzilaiwebsite.vercel.app/); branches get preview deploys.** Still unset in Vercel: `VITE_DEMO_URL`, `VITE_SITE_URL`, `VITE_PRIVACY_URL`. See `AGENTS.md` for the developer's own notes.
 
 > **2026-11-18 (later):** Added placeholder "Meet the team" (3 members, `#team`) and "Our trusted partners" (6 logo slots, `#partners`) after the comparison: `components/Team.jsx`, `components/Partners.jsx`, shared `styles/Team.css`, content in `data/team.js`. All text is placeholder until the owner sends real names, roles, photos and logos (set `logo` on a partner to show an image). Not in the nav. Checked at 1440/768/390/320: no overflow, no console errors; build passes. Screenshots: `review-screenshots/team-partners-{1440,390}.png`.

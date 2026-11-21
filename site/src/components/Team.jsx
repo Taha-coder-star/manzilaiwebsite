@@ -10,7 +10,9 @@ export default function Team() {
           {team.map((m, i) => (
             <li className="team__card" key={i}>
               <div className="team__photo" aria-hidden="true">
-                <svg viewBox="0 0 48 48"><circle cx="24" cy="18" r="9" /><path d="M7 44c2-10 9-15 17-15s15 5 17 15z" /></svg>
+                {m.photo
+                  ? <img src={m.photo} alt="" width="96" height="96" loading="lazy" />
+                  : <svg viewBox="0 0 48 48"><circle cx="24" cy="18" r="9" /><path d="M7 44c2-10 9-15 17-15s15 5 17 15z" /></svg>}
               </div>
               <h3>{m.name}</h3>
               <p className="team__role">{m.role}</p>
