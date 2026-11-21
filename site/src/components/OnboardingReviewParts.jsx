@@ -7,6 +7,7 @@ export const REVIEW_STATUS = {
   submitted: "With Manzil for review",
   changes_requested: "Changes requested",
   approved: "Review approved",
+  live: "Live",
 };
 
 const EVENTS = {

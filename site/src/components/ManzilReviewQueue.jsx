@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import mark from "../assets/manzil-mark-dark.svg";
+import AssistedActivation from "./AssistedActivation";
 import { AnswerList, REVIEW_STATUS, ReviewHistory } from "./OnboardingReviewParts";
 import "../styles/Onboarding.css";
 
@@ -88,7 +89,7 @@ function DecisionForm({ detail, reviewer, busy, onDecide }) {
   </section>;
 }
 
-function SubmissionDetail({ detail, reviewer, busy, onDecide }) {
+function SubmissionDetail({ detail, reviewer, busy, onDecide, onRefresh }) {
   const review = detail.review;
   return <>
     <h1>{detail.agency_name}</h1>
@@ -98,11 +99,16 @@ function SubmissionDetail({ detail, reviewer, busy, onDecide }) {
     <p>Latest submission <time dateTime={detail.submitted_at}>{new Date(detail.submitted_at).toLocaleString()}</time></p>
     {review.reopened_section && <p>Returned section {detail.sections.find((item) => item.id === review.reopened_section)?.title}</p>}
     <DecisionForm key={`${detail.id}-${review.status}`} detail={detail} reviewer={reviewer} busy={busy} onDecide={onDecide} />
+    {detail.activation_available && <AssistedActivation key={detail.id}
+      endpoint={`${QUEUE}/${detail.id}/activation`} onReviewChanged={() => onRefresh(detail.id)} />}
     <ReviewHistory history={review.history} sections={detail.sections} />
     <section className="setup-review-section">
       <h2>Submitted files</h2>
       {detail.files.length ? <ul className="setup-file-list">
-        {detail.files.map((file) => <li key={file.id}><div><strong>{file.filename}</strong>
+        {detail.files.map((file) => <li key={file.id}><div>{detail.activation_available
+          ? <a className="setup-link" target="_blank" rel="noopener"
+              href={`${QUEUE}/${detail.id}/activation/files/${file.id}`}>{file.filename}</a>
+          : <strong>{file.filename}</strong>}
           {file.property_reference && <span>Property {file.property_reference}</span>}</div></li>)}
       </ul> : <p>No verified files were included.</p>}
     </section>
@@ -196,7 +202,7 @@ export default function ManzilReviewQueue() {
       </p>}
       <p className="setup-save-status" role="status">{message}</p>
       {queue && !needsSignIn && (detail
-        ? <SubmissionDetail detail={detail} reviewer={queue.reviewer} onDecide={decide} busy={busy} />
+        ? <SubmissionDetail detail={detail} reviewer={queue.reviewer} onDecide={decide} busy={busy} onRefresh={open} />
         : <QueueItems items={queue.items} onOpen={open} busy={busy} />)}
     </main>
   </div>;

@@ -136,6 +136,20 @@
 .setup-queue-item button { padding: 0; text-align: start; }
 .setup-queue-back { margin: 0 0 12px; padding: 0; }
 
+.setup-activation { border: 1px solid var(--line); border-radius: 12px; background: #f2f8f3;
+  padding: clamp(12px, 3vw, 26px); margin: 20px 0; }
+.setup-activation h2 { margin: 0 0 12px; font-size: 1.35rem; }
+.setup-activation h3 { margin: 0 0 8px; font-size: 1.08rem; }
+.setup-activation-step, .setup-activation-preview, .setup-activation-controls { margin: 16px 0; }
+.setup-activation-step code { word-break: break-all; }
+.setup-preview-scroll { overflow-x: auto; margin: 12px 0; background: #fff; border: 1px solid var(--line); }
+.setup-preview-table { border-collapse: collapse; width: 100%; min-width: 670px; text-align: start; font-size: .9rem; }
+.setup-preview-table th, .setup-preview-table td { padding: 9px; border-bottom: 1px solid var(--line); text-align: start; }
+.setup-preview-table th { color: var(--forest); }
+.setup-activation-photos { margin: 18px 0; }
+.setup-activation-confirm { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 14px; }
+.setup-activation-confirm input { margin-top: .28em; }
+
 @media (max-width: 760px) {
   .setup-sidebar { display: none; }
   .setup-layout { grid-template-columns: 1fr; gap: 12px; padding: 16px 14px 38px; }
