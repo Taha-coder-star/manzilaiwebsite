@@ -60,7 +60,7 @@ export default function LeadSummary({ revealed, viewing, reducedMotion }) {
     <div className="summary" ref={ref}>
       <p className="summary__title">
         <span className="summary__av">{summaryInitials}</span>
-        Lead summary
+        What your broker receives on WhatsApp
       </p>
       <ul className="summary__list">
         {summaryFields.map((field) => {
