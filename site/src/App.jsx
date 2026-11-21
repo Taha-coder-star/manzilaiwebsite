@@ -4,6 +4,8 @@ import Hero from "./components/Hero";
 import AgencyBenefits from "./components/AgencyBenefits";
 import DemoVideo from "./components/DemoVideo";
 import Comparison from "./components/Comparison";
+import Team from "./components/Team";
+import Partners from "./components/Partners";
 import HomepageClose, { SiteFooter } from "./components/HomepageClose";
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
         <AgencyBenefits />
         <DemoVideo />
         <Comparison />
+        <Team />
+        <Partners />
         <HomepageClose />
       </main>
       <SiteFooter />
