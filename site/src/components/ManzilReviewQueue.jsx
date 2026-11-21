@@ -105,7 +105,7 @@ function SubmissionDetail({ detail, reviewer, busy, onDecide, onRefresh }) {
     <section className="setup-review-section">
       <h2>Submitted files</h2>
       {detail.files.length ? <ul className="setup-file-list">
-        {detail.files.map((file) => <li key={file.id}><div>{detail.activation_available
+        {detail.files.map((file) => <li key={file.id}><div>{detail.file_download_available
           ? <a className="setup-link" target="_blank" rel="noopener"
               href={`${QUEUE}/${detail.id}/activation/files/${file.id}`}>{file.filename}</a>
           : <strong>{file.filename}</strong>}

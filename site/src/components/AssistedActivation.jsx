@@ -9,6 +9,7 @@ const ACTIONS = {
   customer_passed: "Customer check passed",
   broker_passed: "Broker check passed",
   went_live: "Agency marked live",
+  paused: "Agency paused",
 };
 
 async function request(endpoint, options) {
@@ -197,7 +198,7 @@ export default function AssistedActivation({ endpoint, onReviewChanged }) {
       if (next.returned) await onReviewChanged();
       else {
         setActivation(next);
-        if (action === "launch") await onReviewChanged();
+        if (action === "launch" || action === "pause") await onReviewChanged();
       }
       return true;
     } catch (issue) {
@@ -219,7 +220,15 @@ export default function AssistedActivation({ endpoint, onReviewChanged }) {
     </div>}
     {!activation && !error && <p role="status">Loading activation…</p>}
     {activation && <>
-      {activation.live_at ? <p role="status">Live since {new Date(activation.live_at).toLocaleString()}.</p> : <>
+      {activation.paused_at ? <p role="status">Paused {new Date(activation.paused_at).toLocaleString()}.</p>
+      : activation.live_at ? <section className="setup-activation-step">
+        <p role="status">Live since {new Date(activation.live_at).toLocaleString()}.</p>
+        <details className="setup-review-history">
+          <summary>Pause this agency</summary>
+          <NoteAction action="pause" label="Reason for pausing" button="Pause agency"
+            confirm="Pause WhatsApp service for this agency." busy={busy} run={run} />
+        </details>
+      </section> : <>
         {!activation.agency_id && <section className="setup-activation-step">
           <h3>Inventory file</h3>
           {fileId ? <form onSubmit={(event) => { event.preventDefault(); run("preview", { file_id: fileId }); }}>

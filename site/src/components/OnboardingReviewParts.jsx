@@ -8,6 +8,7 @@ export const REVIEW_STATUS = {
   changes_requested: "Changes requested",
   approved: "Review approved",
   live: "Live",
+  paused: "Paused",
 };
 
 const EVENTS = {
