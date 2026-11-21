@@ -149,8 +149,12 @@ function WhatsAppChecks({ activation, busy, run }) {
   return <section className="setup-activation-step">
     <h3>WhatsApp verification and checks</h3>
     <p>Imported {activation.approval.row_numbers.length} approved rows and {activation.approval.photo_ids.length} photos.</p>
-    <p>Ask the Manzil operator to add this sender route to <code>WEBHOOK_SENDER_AGENCIES</code>.</p>
-    <p><code>{activation.phone_number_id}={activation.agency_id}</code></p>
+    {activation.sender_source === "database"
+      ? <p>Recording the call verifies this agency’s sender for the two test accounts.</p>
+      : <>
+        <p>Ask the Manzil operator to add this sender route to <code>WEBHOOK_SENDER_AGENCIES</code>.</p>
+        <p><code>{activation.phone_number_id}={activation.agency_id}</code></p>
+      </>}
     {!activation.verified_at || expired ? <>
       <p>Verify the registered number on the setup call. Enter any verification code directly in Meta.</p>
       {expired && <p>The test window has expired. Start a fresh call and repeat both checks.</p>}
