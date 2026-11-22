@@ -1,5 +1,7 @@
 # Manzil AI website: handoff for Claude Code
 
+> **2026-11-22:** Owner set the Vercel env var `ONBOARDING_API_ORIGIN=https://100-60-196-120.sslip.io` (Production + Preview, server-side, no `VITE_` prefix) and redeployed. No code on `main` or any `launch/*` branch reads it yet; it is for the developer's upcoming onboarding/API code.
+
 > **2026-11-21 (later):** Team card 1 is real: Taha Ahmed, Co-founder & CTO, photo `site/src/assets/team-1.jpg` (384px crop). `Team.jsx` shows `photo` when set, else the placeholder icon. Cards 2–3 still placeholders.
 
 > **2026-11-21:** Developer (furqan) branch `launch/day-2-homepage-completion` merged into `main` (`ef05cc0`): WhatsApp demo CTA, `DemoVideo` (MP4s in `site/public/demo/`), FAQ/closing section + footer (`HomepageClose.jsx`), OG tags in `vite.config.js`. Team/Partners then committed on top. Page order: Hero → Benefits → DemoVideo → Comparison → Team → Partners → HomepageClose → SiteFooter. **Hosting is Vercel via the GitHub integration: every push to `main` deploys production (https://manzilaiwebsite.vercel.app/); branches get preview deploys.** Still unset in Vercel: `VITE_DEMO_URL`, `VITE_SITE_URL`, `VITE_PRIVACY_URL`. See `AGENTS.md` for the developer's own notes.
