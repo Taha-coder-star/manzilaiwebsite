@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/client-setup",
+      "destination": "https://100-60-196-120.sslip.io/client-setup"
+    },
+    {
+      "source": "/client-setup/:path*",
+      "destination": "https://100-60-196-120.sslip.io/client-setup/:path*"
+    },
+    {
+      "source": "/onboarding",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/onboarding-review",
+      "destination": "/index.html"
+    }
+  ]
+}

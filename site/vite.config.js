@@ -34,8 +34,25 @@ function shareMetadata(siteUrl) {
 // sub-path or static host (Netlify, Vercel, S3, GitHub Pages, ...).
 export default defineConfig(({ mode }) => {
   const siteUrl = loadEnv(mode, process.cwd(), "VITE_").VITE_SITE_URL?.trim();
+  const origin = loadEnv(mode, process.cwd(), "ONBOARDING_").ONBOARDING_API_ORIGIN?.trim();
+  const proxy = origin ? { "^/client-setup(?:/|$)": { target: origin, changeOrigin: true } } : undefined;
   return {
     base: "./",
-    plugins: [react(), siteUrl && shareMetadata(siteUrl)],
+    plugins: [react(), siteUrl && shareMetadata(siteUrl), {
+      name: "manzil-onboarding-path",
+      configureServer: normalizePortalPath,
+      configurePreviewServer: normalizePortalPath,
+    }],
+    server: { proxy },
+    preview: { proxy },
   };
 });
+
+function normalizePortalPath(server) {
+  server.middlewares.use((request, response, next) => {
+    const url = new URL(request.url ?? "/", "http://localhost");
+    if (!["/onboarding/", "/onboarding-review/"].includes(url.pathname)) return next();
+    response.writeHead(308, { Location: `${url.pathname.slice(0, -1)}${url.search}` });
+    response.end();
+  });
+}

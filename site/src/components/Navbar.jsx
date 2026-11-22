@@ -154,6 +154,8 @@ export default function Navbar() {
               <a key={item.id} className="nav__plain" href={item.href}>{item.label}</a>
             )
           )}
+          {import.meta.env.VITE_CLIENT_SIGN_IN_ENABLED === "true" &&
+            <a className="nav__plain nav__client" href="/onboarding">Client sign in</a>}
           <div className="nav__mobile-cta">
             <DemoLink />
           </div>
