@@ -1,5 +1,7 @@
 # Manzil AI website: handoff for Claude Code
 
+> **2026-11-23 (later):** Team card 2 is real: Furqan Halari, Founder & CEO, photo `site/src/assets/team-2.jpg` (384px crop). Bio wording ("Leads the company, shaping the vision…") was drafted by Claude from the owner's "also makes Manzil AI what it is". Card 3 is still a placeholder.
+
 > **2026-11-23:** Tasteskill audit (`design-taste-frontend`; consistency/check/perf on `site/dist`). Fixed its `hidden-content` FAIL: the lead summary (`LeadSummary.jsx`), broker brief (`AgencyBenefits.jsx`) and enquiry chips (`useEnquirySequence.js`) now get their hidden "wait until seen" state only inside the IntersectionObserver callback when off screen, so a silent observer leaves them visible. Live path verified at 390/1440 (mobile cascade, benefit animations, no console errors). Other audit findings open: placeholder Partners/Team content on production, unequal section edges (120/190/270px at 1440), tablet nav hides "Book a demo", three button styles. `check.mjs` needs the kit's `.wrap` and reports nothing else on this site.
 
 > **2026-11-22:** Owner set the Vercel env var `ONBOARDING_API_ORIGIN=https://100-60-196-120.sslip.io` (Production + Preview, server-side, no `VITE_` prefix) and redeployed. No code on `main` or any `launch/*` branch reads it yet; it is for the developer's upcoming onboarding/API code.
