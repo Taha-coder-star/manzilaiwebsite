@@ -188,11 +188,13 @@ export default function AgencyBenefits() {
       if (entries[0]?.isIntersecting) {
         broker.classList.add("is-playing");
         brokerObserver.unobserve(broker);
+      } else {
+        // hide the steps only once the observer is live, so a silent one leaves them shown
+        broker.classList.add("is-ready");
       }
     }, { threshold: 0.45 });
     brokerObserverRef.current = brokerObserver;
     brokerObserver.observe(broker);
-    broker.classList.add("is-ready");
     return () => {
       observer.disconnect();
       brokerObserver.disconnect();

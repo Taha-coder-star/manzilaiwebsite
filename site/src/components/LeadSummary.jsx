@@ -18,16 +18,23 @@ export default function LeadSummary({ revealed, viewing, reducedMotion }) {
   const ref = useRef(null);
   const live = useRef({ revealed, viewing });
   live.current = { revealed, viewing };
-  const [seen, setSeen] = useState(reducedMotion);
+  // shown by default; hidden only once the observer reports the card off screen, so a
+  // silent or failed observer never leaves the summary empty
+  const [seen, setSeen] = useState(true);
+  const done = useRef(false);
   const [catchUp, setCatchUp] = useState(null); // field key -> delay, when the card was seen late
   const [holdStatus, setHoldStatus] = useState(false);
 
   useEffect(() => {
-    if (reducedMotion) return setSeen(true);
-    if (seen) return;
+    if (reducedMotion) {
+      done.current = true;
+      return setSeen(true);
+    }
+    if (done.current) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        if (!entry.isIntersecting) return setSeen(false);
+        done.current = true;
         io.disconnect();
         const keys = summaryFields.map((f) => f.key).filter((k) => k in live.current.revealed);
         if (keys.length) {
@@ -40,7 +47,7 @@ export default function LeadSummary({ revealed, viewing, reducedMotion }) {
     );
     io.observe(ref.current);
     return () => io.disconnect();
-  }, [reducedMotion, seen]);
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (!holdStatus) return;

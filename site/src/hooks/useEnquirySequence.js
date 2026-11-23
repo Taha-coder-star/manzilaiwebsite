@@ -84,9 +84,10 @@ export default function useEnquirySequence(visualRef, geometryReady, replayVersi
       if (geometryReady && !motion.matches && window.IntersectionObserver && Element.prototype.animate) {
         observer = new IntersectionObserver((entries) => {
           if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= .45)) play();
+          // hide the terms only once the observer is live, so a silent one leaves them shown
+          else visual.dataset.enquiryState = "ready";
         }, { threshold: .45 });
         observer.observe(visual);
-        visual.dataset.enquiryState = "ready";
         if (replayVersion > 0) play();
       }
       motion.addEventListener("change", reduceMotion);
